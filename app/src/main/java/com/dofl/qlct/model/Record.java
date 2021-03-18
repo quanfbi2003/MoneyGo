@@ -1,6 +1,7 @@
 package com.dofl.qlct.model;
 
 public class Record {
+    private int id;
     private int total;
     private String description;
     private int n1_qty;
@@ -16,8 +17,25 @@ public class Record {
     private double n2_total;
     private double n3_total;
     private double n4_total;
+    private int icon;
 
     public Record() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 
     public int getTotal() {

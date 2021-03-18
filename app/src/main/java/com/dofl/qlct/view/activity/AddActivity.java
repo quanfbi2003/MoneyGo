@@ -3,7 +3,6 @@ package com.dofl.qlct.view.activity;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -27,6 +26,8 @@ import com.dofl.qlct.model.Account;
 import com.dofl.qlct.model.Record;
 import com.dofl.qlct.presenter.AddInterface;
 import com.dofl.qlct.presenter.AddPresenter;
+import com.dofl.qlct.presenter.utils.BundlePackage;
+import com.dofl.qlct.presenter.utils.HideKeyboard;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -49,8 +50,7 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        onCreateToolbar();
-        onCreateValue();
+        initValue();
         onCreateDateAndTime();
         setImageBehavior();
         setImageButtonListener();
@@ -58,15 +58,28 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
     }
 
 
-    /****************************Toolbar***************************/
-    private void onCreateToolbar() {
+    /****************************Initial Value***************************/
+    private void initValue() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         drawerLayout = findViewById(R.id.drawerLayout);
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        EditText moneyText = findViewById(R.id.sotien);
+        moneyText.setSelection(0);
+
+        account = BundlePackage.getBundle(getIntent());
+
+        addPresenter = new AddPresenter(this);
+
+        HideKeyboard.setupUI(findViewById(R.id.add_view), AddActivity.this);
     }
 
+
+    /****************************Override Toolbar Functions***************************/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -88,20 +101,7 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
     }
 
 
-    /****************************Value***************************/
-    private void onCreateValue() {
-        EditText moneyText = findViewById(R.id.sotien);
-        moneyText.setSelection(0);
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-            account = new Account(bundle.getInt("id"), bundle.getString("username"), bundle.getString("role"), bundle.getString("displayName"), bundle.getInt("packageNumber"));
-        }
-        addPresenter = new AddPresenter(this);
-    }
-
-
-    /****************************Date And Time***************************/
+    /****************************OnCreate Date And Time***************************/
     private void onCreateDateAndTime() {
         myCalendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener d = (view, year, monthOfYear, dayOfMonth) -> {
@@ -160,13 +160,15 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
 
 
     /****************************Image Value Button***************************/
-    private void setImageStatus(boolean status, ImageView imageViewUp, ImageView imageViewDown) {
+    private void setImageStatus(boolean status, ImageView imageViewUp, ImageView imageViewDown, TextView textViewValue) {
         if (status) {
             imageViewUp.setBackgroundColor(Color.WHITE);
             imageViewDown.setBackgroundColor(Color.WHITE);
+            textViewValue.setText("1");
         } else {
             imageViewUp.setBackgroundColor(Color.GRAY);
             imageViewDown.setBackgroundColor(Color.GRAY);
+            textViewValue.setText("0");
         }
 
     }
@@ -276,39 +278,43 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
         CheckBox checkBox = findViewById(R.id.checkBoxN1);
         ImageView imageViewUp = findViewById(R.id.imageViewUpN1);
         ImageView imageViewDown = findViewById(R.id.imageViewDownN1);
-        setImageStatus(checkBox.isChecked(), imageViewUp, imageViewDown);
+        TextView textViewValue = findViewById(R.id.textViewValueN1);
+        setImageStatus(checkBox.isChecked(), imageViewUp, imageViewDown, textViewValue);
     }
 
     public void setCheckBoxClickN2(View view) {
         CheckBox checkBox = findViewById(R.id.checkBoxN2);
         ImageView imageViewUp = findViewById(R.id.imageViewUpN2);
         ImageView imageViewDown = findViewById(R.id.imageViewDownN2);
-        setImageStatus(checkBox.isChecked(), imageViewUp, imageViewDown);
+        TextView textViewValue = findViewById(R.id.textViewValueN2);
+        setImageStatus(checkBox.isChecked(), imageViewUp, imageViewDown, textViewValue);
     }
 
     public void setCheckBoxClickN3(View view) {
         CheckBox checkBox = findViewById(R.id.checkBoxN3);
         ImageView imageViewUp = findViewById(R.id.imageViewUpN3);
         ImageView imageViewDown = findViewById(R.id.imageViewDownN3);
-        setImageStatus(checkBox.isChecked(), imageViewUp, imageViewDown);
+        TextView textViewValue = findViewById(R.id.textViewValueN3);
+        setImageStatus(checkBox.isChecked(), imageViewUp, imageViewDown, textViewValue);
     }
 
     public void setCheckBoxClickN4(View view) {
         CheckBox checkBox = findViewById(R.id.checkBoxN4);
         ImageView imageViewUp = findViewById(R.id.imageViewUpN4);
         ImageView imageViewDown = findViewById(R.id.imageViewDownN4);
-        setImageStatus(checkBox.isChecked(), imageViewUp, imageViewDown);
+        TextView textViewValue = findViewById(R.id.textViewValueN4);
+        setImageStatus(checkBox.isChecked(), imageViewUp, imageViewDown, textViewValue);
     }
 
 
     /****************************Image Info Button***************************/
-    private void setImageClick(CheckBox checkBox, ImageView imageViewUp, ImageView imageViewDown) {
+    private void setImageClick(CheckBox checkBox, ImageView imageViewUp, ImageView imageViewDown, TextView textViewValue) {
         if (checkBox.isChecked()) {
             checkBox.setChecked(false);
-            setImageStatus(false, imageViewUp, imageViewDown);
+            setImageStatus(false, imageViewUp, imageViewDown, textViewValue);
         } else {
             checkBox.setChecked(true);
-            setImageStatus(true, imageViewUp, imageViewDown);
+            setImageStatus(true, imageViewUp, imageViewDown, textViewValue);
         }
 
     }
@@ -317,28 +323,32 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
         CheckBox checkBox = findViewById(R.id.checkBoxN1);
         ImageView imageViewUp = findViewById(R.id.imageViewUpN1);
         ImageView imageViewDown = findViewById(R.id.imageViewDownN1);
-        setImageClick(checkBox, imageViewUp, imageViewDown);
+        TextView textViewValue = findViewById(R.id.textViewValueN1);
+        setImageClick(checkBox, imageViewUp, imageViewDown, textViewValue);
     }
 
     public void setImageClickN2(View view) {
         CheckBox checkBox = findViewById(R.id.checkBoxN2);
         ImageView imageViewUp = findViewById(R.id.imageViewUpN2);
         ImageView imageViewDown = findViewById(R.id.imageViewDownN2);
-        setImageClick(checkBox, imageViewUp, imageViewDown);
+        TextView textViewValue = findViewById(R.id.textViewValueN2);
+        setImageClick(checkBox, imageViewUp, imageViewDown, textViewValue);
     }
 
     public void setImageClickN3(View view) {
         CheckBox checkBox = findViewById(R.id.checkBoxN3);
         ImageView imageViewUp = findViewById(R.id.imageViewUpN3);
         ImageView imageViewDown = findViewById(R.id.imageViewDownN3);
-        setImageClick(checkBox, imageViewUp, imageViewDown);
+        TextView textViewValue = findViewById(R.id.textViewValueN3);
+        setImageClick(checkBox, imageViewUp, imageViewDown, textViewValue);
     }
 
     public void setImageClickN4(View view) {
         CheckBox checkBox = findViewById(R.id.checkBoxN4);
         ImageView imageViewUp = findViewById(R.id.imageViewUpN4);
         ImageView imageViewDown = findViewById(R.id.imageViewDownN4);
-        setImageClick(checkBox, imageViewUp, imageViewDown);
+        TextView textViewValue = findViewById(R.id.textViewValueN4);
+        setImageClick(checkBox, imageViewUp, imageViewDown, textViewValue);
     }
 
     /****************************Image Behavior Button***************************/
@@ -387,21 +397,13 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
     /****************************Interface Functions***************************/
     @Override
     public void addSuccess() {
+        reset();
         Toast.makeText(getApplicationContext(), "Add successfully!!!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(AddActivity.this, AddActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", account.getId());
-        bundle.putString("username", account.getUsername());
-        bundle.putString("role", account.getRole());
-        bundle.putString("displayName", account.getDisplayName());
-        bundle.putInt("packageNumber", account.getPackageNumber());
-        intent.putExtras(bundle);
-        startActivity(intent);
     }
 
     @Override
-    public void addError() {
-        Toast.makeText(getApplicationContext(), "Add unsuccessfully!!!", Toast.LENGTH_SHORT).show();
+    public void addError(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -411,21 +413,13 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
 
 
     /****************************OnClick Function Button***************************/
+    @SuppressLint("SetTextI18n")
     private void setOnClickFunctionButton() {
-        findViewById(R.id.cancel).setOnClickListener(v -> {
-            Intent intent = new Intent(AddActivity.this, MainActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putInt("id", account.getId());
-            bundle.putString("username", account.getUsername());
-            bundle.putString("role", account.getRole());
-            bundle.putString("displayName", account.getDisplayName());
-            bundle.putInt("packageNumber", account.getPackageNumber());
-            intent.putExtras(bundle);
-            startActivity(intent);
-        });
+        findViewById(R.id.cancel).setOnClickListener(v -> this.finish());
+
         findViewById(R.id.save).setOnClickListener(v -> {
             int qty = 0;
-            EditText sotien = findViewById(R.id.sotien);
+            EditText soTien = findViewById(R.id.sotien);
             EditText time = findViewById(R.id.time);
             EditText description = findViewById(R.id.description);
             CheckBox checkBoxN1 = findViewById(R.id.checkBoxN1);
@@ -437,7 +431,7 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
             CheckBox checkBoxN4 = findViewById(R.id.checkBoxN4);
             TextView textViewValueN4 = findViewById(R.id.textViewValueN4);
             Record record = new Record();
-            record.setTotal(Integer.parseInt(sotien.getText().toString()));
+            record.setTotal(Integer.parseInt(soTien.getText().toString()));
             record.setBuyer(account.getId());
 
             if (checkBoxN1.isChecked()) {
@@ -479,18 +473,35 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
             record.setDescription(description.getText().toString());
 
             addPresenter.addRecord(record);
-
-            Intent intent = new Intent(AddActivity.this, AddActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putInt("id", account.getId());
-            bundle.putString("username", account.getUsername());
-            bundle.putString("role", account.getRole());
-            bundle.putString("displayName", account.getDisplayName());
-            bundle.putInt("packageNumber", account.getPackageNumber());
-            intent.putExtras(bundle);
-            startActivity(intent);
         });
+    }
 
+    @SuppressLint("SetTextI18n")
+    private void reset() {
+        EditText soTien = findViewById(R.id.sotien);
+        EditText time = findViewById(R.id.time);
+        EditText dateText = findViewById(R.id.date);
+        EditText description = findViewById(R.id.description);
+        CheckBox checkBoxN1 = findViewById(R.id.checkBoxN1);
+        CheckBox checkBoxN2 = findViewById(R.id.checkBoxN2);
+        CheckBox checkBoxN3 = findViewById(R.id.checkBoxN3);
+        CheckBox checkBoxN4 = findViewById(R.id.checkBoxN4);
 
+        soTien.setText("000");
+        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        time.setText(simpleTimeFormat.format(new Date().getTime()));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("u-dd/MM/yyyy", Locale.getDefault());
+        String[] list = {"Hôm nay", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy", "Chủ nhật", "Hôm qua"};
+        String[] date1now = simpleDateFormat.format(new Date().getTime()).split("-");
+        dateText.setText(list[0] + " - " + date1now[1]);
+        description.setText("");
+        checkBoxN1.setChecked(true);
+        checkBoxN2.setChecked(true);
+        checkBoxN3.setChecked(true);
+        checkBoxN4.setChecked(true);
+        setImageClickN1(findViewById(R.id.add_view));
+        setImageClickN2(findViewById(R.id.add_view));
+        setImageClickN3(findViewById(R.id.add_view));
+        setImageClickN4(findViewById(R.id.add_view));
     }
 }

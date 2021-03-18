@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.MainActivity">
+    tools:context=".view.activity.HistoryActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
@@ -21,24 +21,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-
                 app:title="@string/app_name"
                 app:titleTextColor="@color/white" />
 
-            <LinearLayout
+            <ListView
+                android:id="@+id/list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="15dp"
-                android:paddingTop="10dp"
-                android:paddingRight="15dp">
-
-                <GridView
-                    android:id="@+id/gridView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:numColumns="2" />
-            </LinearLayout>
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <com.google.android.material.navigation.NavigationView
@@ -50,8 +39,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
-
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -64,13 +53,13 @@
                     android:src="@drawable/nav_info" />
 
                 <TextView
-                    android:id="@+id/displayName"
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:paddingBottom="30dp"
-                    android:text="Quân Jullian"
+                    android:text="@string/name"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -82,7 +71,7 @@
                     android:layout_gravity="center"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Đăng xuất"
+                    android:text="@string/sign_out"
                     android:textColor="@color/purple_700"
                     android:textSize="20sp"
                     android:textStyle="bold" />

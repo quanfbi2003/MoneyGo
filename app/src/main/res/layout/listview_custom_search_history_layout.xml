@@ -2,15 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_time" />
+        app:layout_constraintTop_toBottomOf="@+id/date" />
 
     <TextView
         android:id="@+id/description"
@@ -26,12 +30,14 @@
         app:layout_constraintEnd_toStartOf="@+id/money"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/date_time" />
+        app:layout_constraintTop_toBottomOf="@+id/date" />
 
     <TextView
-        android:id="@+id/date_time"
-        android:layout_width="183dp"
+        android:id="@+id/date"
+        android:layout_width="283dp"
         android:layout_height="25dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:text="Chủ nhật - 13/3/1999"
         android:textColor="#9C27B0"
         android:textSize="17sp"
@@ -40,17 +46,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:text="12:12"
+        android:textColor="#9C27B0"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginRight="9dp"
         android:text="500000 đ"
         android:textColor="#FF0000"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/time" />
 
     <View
         android:id="@+id/divider3"

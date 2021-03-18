@@ -1,7 +1,11 @@
 package com.dofl.qlct.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,9 +15,12 @@ import com.dofl.qlct.R;
 import com.dofl.qlct.model.Account;
 import com.dofl.qlct.presenter.LoginInterface;
 import com.dofl.qlct.presenter.LoginPresenter;
+import com.dofl.qlct.presenter.utils.BundlePackage;
+import com.dofl.qlct.presenter.utils.HideKeyboard;
 
 public class LoginActivity extends AppCompatActivity implements LoginInterface {
     private LoginPresenter loginPresenter;
+    private SharedPreferences loginPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +33,19 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
 
 
     /****************************Initial Value***************************/
+    @SuppressLint("CommitPrefEdits")
     private void initValue() {
+        HideKeyboard.setupUI(findViewById(R.id.login_view), LoginActivity.this);
         loginPresenter = new LoginPresenter(this);
+
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        String usernameSave = loginPreferences.getString("username", "");
+        String passwordSave = loginPreferences.getString("password", "");
+        Log.e("Log loginPreferences", usernameSave + " " + passwordSave);
+        if (!usernameSave.trim().isEmpty() & !passwordSave.trim().isEmpty()) {
+            Account account = new Account(usernameSave, passwordSave);
+            loginPresenter.login(account);
+        }
     }
 
 
@@ -36,14 +54,21 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
     public void loginSuccess(Account account) {
         Toast.makeText(getApplicationContext(), "Login successfully!!!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", account.getId());
-        bundle.putString("username", account.getUsername());
-        bundle.putString("role", account.getRole());
-        bundle.putString("displayName", account.getDisplayName());
-        bundle.putInt("packageNumber", account.getPackageNumber());
-        intent.putExtras(bundle);
+        intent.putExtras(BundlePackage.setBundle(account));
+
+        String usernameSave = loginPreferences.getString("username", "");
+        String passwordSave = loginPreferences.getString("password", "");
+        Log.e("Log loginPreferences", usernameSave + " " + passwordSave);
+        if (usernameSave.trim().isEmpty() || passwordSave.trim().isEmpty()) {
+            SharedPreferences.Editor loginPrefsEditor = loginPreferences.edit();
+            EditText username = findViewById(R.id.username);
+            EditText password = findViewById(R.id.password);
+            loginPrefsEditor.putString("username", username.getText().toString());
+            loginPrefsEditor.putString("password", password.getText().toString());
+            loginPrefsEditor.apply();
+        }
         startActivity(intent);
+        this.finish();
     }
 
     @Override
@@ -66,7 +91,8 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
             String password = textViewPassword.getText().toString();
             Account account = new Account(username, password);
             loginPresenter.login(account);
+            textViewUsername.setText("");
+            textViewPassword.setText("");
         });
-
     }
 }

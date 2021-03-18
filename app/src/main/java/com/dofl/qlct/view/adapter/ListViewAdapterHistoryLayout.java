@@ -10,22 +10,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dofl.qlct.R;
-import com.dofl.qlct.model.ListViewHistoryElement;
+import com.dofl.qlct.model.Record;
 
 import java.util.ArrayList;
 
 public class ListViewAdapterHistoryLayout extends BaseAdapter {
     private final Context context;
-    private final ArrayList<ListViewHistoryElement> listViewHistoryElement;
+    private final ArrayList<Record> recordArrayList;
 
-    public ListViewAdapterHistoryLayout(Context context, ArrayList<ListViewHistoryElement> listViewHistoryElement) {
+    public ListViewAdapterHistoryLayout(Context context, ArrayList<Record> recordArrayList) {
         this.context = context;
-        this.listViewHistoryElement = listViewHistoryElement;
+        this.recordArrayList = recordArrayList;
     }
 
     @Override
     public int getCount() {
-        return listViewHistoryElement.size();
+        return recordArrayList.size();
     }
 
     @Override
@@ -44,14 +44,16 @@ public class ListViewAdapterHistoryLayout extends BaseAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = layoutInflater.inflate(R.layout.listview_custom_search_history_layout, null);
         TextView description = convertView.findViewById(R.id.description);
-        TextView dateTime = convertView.findViewById(R.id.date_time);
+        TextView date = convertView.findViewById(R.id.date);
+        TextView time = convertView.findViewById(R.id.time);
         TextView money = convertView.findViewById(R.id.money);
         ImageView icon = convertView.findViewById(R.id.icon);
 
-        description.setText(listViewHistoryElement.get(position).getDescription());
-        dateTime.setText(listViewHistoryElement.get(position).getDateTime());
-        money.setText(listViewHistoryElement.get(position).getMoney() + " đ");
-        icon.setImageResource(listViewHistoryElement.get(position).getIcon());
+        description.setText(recordArrayList.get(position).getDescription());
+        date.setText(recordArrayList.get(position).getDate_create());
+        time.setText(recordArrayList.get(position).getTime_create());
+        money.setText(recordArrayList.get(position).getTotal() + " đ");
+        icon.setImageResource(recordArrayList.get(position).getIcon());
         return convertView;
     }
 }
