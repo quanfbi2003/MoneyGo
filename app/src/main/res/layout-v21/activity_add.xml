@@ -138,11 +138,11 @@
                         android:layout_marginTop="5dp">
 
                         <EditText
-                            android:id="@+id/note"
+                            android:id="@+id/description"
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
                             android:layout_marginEnd="10dp"
-                            android:layout_toEndOf="@+id/noteico"
+                            android:layout_toEndOf="@+id/descriptionico"
                             android:autofillHints=""
                             android:backgroundTint="#4DD0E1"
                             android:hint="@string/ghi_chu"
@@ -153,12 +153,12 @@
                             android:paddingBottom="5dp" />
 
                         <ImageView
-                            android:id="@+id/noteico"
+                            android:id="@+id/descriptionico"
                             android:layout_width="40dp"
                             android:layout_height="70dp"
                             android:contentDescription="@string/todo"
                             android:padding="3dp"
-                            android:src="@drawable/add__menu_note" />
+                            android:src="@drawable/add_menu_description" />
                     </RelativeLayout>
 
                     <View
@@ -184,7 +184,7 @@
                                 android:id="@+id/checkBoxN1"
                                 android:layout_width="40dp"
                                 android:layout_height="50dp"
-                                android:onClick="setN1Clicked"
+                                android:onClick="setCheckBoxClickN1"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -196,7 +196,8 @@
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
                                 android:contentDescription="@string/todo"
-                                android:onClick="setN1Clicked"
+                                android:onClick="setImageClickN1"
+
                                 android:src="@drawable/nav_info"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toEndOf="@id/checkBoxN1"
@@ -208,7 +209,7 @@
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                android:onClick="setN1Clicked"
+                                android:onClick="setImageClickN1"
                                 android:text="@string/name_n1"
                                 android:textColor="@color/purple_500"
                                 android:textSize="15sp"
@@ -231,6 +232,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="50dp"
                                     android:layout_gravity="center"
+                                    android:background="#888888"
                                     android:contentDescription="@string/todo"
                                     android:src="@drawable/add_menu_up"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -257,6 +259,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="50dp"
                                     android:layout_gravity="center"
+                                    android:background="#888888"
                                     android:contentDescription="@string/todo"
                                     android:src="@drawable/add_menu_down"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -283,7 +286,7 @@
                                 android:id="@+id/checkBoxN2"
                                 android:layout_width="40dp"
                                 android:layout_height="50dp"
-                                android:onClick="setN2Clicked"
+                                android:onClick="setCheckBoxClickN2"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -294,8 +297,8 @@
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
-                                android:onClick="setN2Clicked"
                                 android:contentDescription="@string/todo"
+                                android:onClick="setImageClickN2"
                                 android:src="@drawable/nav_info"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toEndOf="@id/checkBoxN2"
@@ -307,7 +310,7 @@
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                android:onClick="setN2Clicked"
+                                android:onClick="setImageClickN2"
                                 android:text="@string/name_n2"
                                 android:textColor="@color/purple_500"
                                 android:textSize="15sp"
@@ -330,6 +333,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="50dp"
                                     android:layout_gravity="center"
+                                    android:background="#888888"
                                     android:contentDescription="@string/todo"
                                     android:src="@drawable/add_menu_up"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -356,6 +360,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="50dp"
                                     android:layout_gravity="center"
+                                    android:background="#888888"
                                     android:contentDescription="@string/todo"
                                     android:src="@drawable/add_menu_down"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -382,7 +387,7 @@
                                 android:id="@+id/checkBoxN3"
                                 android:layout_width="40dp"
                                 android:layout_height="50dp"
-                                android:onClick="setN3Clicked"
+                                android:onClick="setCheckBoxClickN3"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -394,7 +399,7 @@
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
                                 android:contentDescription="@string/todo"
-                                android:onClick="setN3Clicked"
+                                android:onClick="setImageClickN3"
                                 android:src="@drawable/nav_info"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toEndOf="@id/checkBoxN3"
@@ -405,8 +410,8 @@
                                 android:layout_width="150dp"
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
-                                android:onClick="setN3Clicked"
                                 android:gravity="center"
+                                android:onClick="setImageClickN3"
                                 android:text="@string/name_n3"
                                 android:textColor="@color/purple_500"
                                 android:textSize="15sp"
@@ -429,6 +434,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="50dp"
                                     android:layout_gravity="center"
+                                    android:background="#888888"
                                     android:contentDescription="@string/todo"
                                     android:src="@drawable/add_menu_up"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -455,6 +461,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="50dp"
                                     android:layout_gravity="center"
+                                    android:background="#888888"
                                     android:contentDescription="@string/todo"
                                     android:src="@drawable/add_menu_down"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -480,8 +487,8 @@
                             <CheckBox
                                 android:id="@+id/checkBoxN4"
                                 android:layout_width="40dp"
-                                android:onClick="setN4Clicked"
                                 android:layout_height="50dp"
+                                android:onClick="setCheckBoxClickN4"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -493,7 +500,7 @@
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
                                 android:contentDescription="@string/todo"
-                                android:onClick="setN4Clicked"
+                                android:onClick="setImageClickN4"
                                 android:src="@drawable/nav_info"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toEndOf="@id/checkBoxN4"
@@ -504,8 +511,8 @@
                                 android:layout_width="150dp"
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
-                                android:onClick="setN4Clicked"
                                 android:gravity="center"
+                                android:onClick="setImageClickN4"
                                 android:text="@string/name_n4"
                                 android:textColor="@color/purple_500"
                                 android:textSize="15sp"
@@ -528,6 +535,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="50dp"
                                     android:layout_gravity="center"
+                                    android:background="#888888"
                                     android:contentDescription="@string/todo"
                                     android:src="@drawable/add_menu_up"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -554,6 +562,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="50dp"
                                     android:layout_gravity="center"
+                                    android:background="#888888"
                                     android:contentDescription="@string/todo"
                                     android:src="@drawable/add_menu_down"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -581,6 +590,7 @@
                         android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/cancel"
                             android:layout_width="170dp"
                             android:layout_height="70dp"
                             android:layout_marginEnd="5dp"
@@ -597,6 +607,7 @@
                             tools:ignore="ButtonStyle" />
 
                         <Button
+                            android:id="@+id/save"
                             android:layout_width="170dp"
                             android:layout_height="70dp"
                             android:layout_marginStart="5dp"
