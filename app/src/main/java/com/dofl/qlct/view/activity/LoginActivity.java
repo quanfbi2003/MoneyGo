@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
     /****************************Initial Value***************************/
     @SuppressLint("CommitPrefEdits")
     private void initValue() {
-        HideKeyboard.setupUI(findViewById(R.id.login_view), LoginActivity.this);
+        new Thread(() -> HideKeyboard.setupUI(findViewById(R.id.login_view), LoginActivity.this)).start();
         loginPresenter = new LoginPresenter(this);
 
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
     public void loginSuccess(Account account) {
         Toast.makeText(getApplicationContext(), "Login successfully!!!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        intent.putExtras(BundlePackage.setBundle(account));
+        intent.putExtras(BundlePackage.setBundleAccount(account));
 
         String usernameSave = loginPreferences.getString("username", "");
         String passwordSave = loginPreferences.getString("password", "");

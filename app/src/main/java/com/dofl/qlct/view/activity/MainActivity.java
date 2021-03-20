@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     /****************************Initial Value***************************/
     private void initValue() {
-        account = BundlePackage.getBundle(getIntent());
+        account = BundlePackage.getBundleAccount(getIntent());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -56,13 +56,13 @@ public class MainActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     Intent intent = new Intent(MainActivity.this, AddActivity.class);
-                    intent.putExtras(BundlePackage.setBundle(account));
+                    intent.putExtras(BundlePackage.setBundleAccount(account));
                     startActivity(intent);
                     break;
 
                 case 1:
                     Intent intent1 = new Intent(MainActivity.this, HistoryActivity.class);
-                    intent1.putExtras(BundlePackage.setBundle(account));
+                    intent1.putExtras(BundlePackage.setBundleAccount(account));
                     startActivity(intent1);
                     break;
 

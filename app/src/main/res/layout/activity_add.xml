@@ -2,9 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.MainActivity">
+    android:orientation="vertical"
+    tools:context=".view.activity.AddActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
@@ -23,86 +25,627 @@
                 android:background="?attr/colorPrimary"
 
                 app:title="@string/app_name"
-                app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
+                app:titleTextColor="@color/white" />
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="15dp"
-                    android:paddingRight="15dp"
-                    android:text="Số tiền"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"></TextView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:layout_width="312dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="end"
-                        android:backgroundTint="#02AAAA"
-                        android:gravity="end|center_vertical"
-                        android:inputType="text"
-                        android:text="000"
-                        android:textColor="#F30A25"
-                        android:textSize="35sp"
-                        android:textStyle="bold"></EditText>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="70dp"
-                        android:layout_gravity="end"
-                        android:gravity="center_vertical"
-                        android:paddingStart="3dp"
-                        android:paddingLeft="3dp"
-                        android:paddingEnd="12dp"
-                        android:paddingRight="12dp"
-                        android:text="@string/dd"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold"></TextView>
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <EditText
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#02AAAA"
-                        android:drawableStart="@drawable/add_menu_date"
-                        android:drawableLeft="@drawable/add_menu_date"
-                        android:inputType="text"
-                        android:text="12/11/2003"></EditText>
+                        android:gravity="end"
+                        android:paddingStart="0dp"
+                        android:paddingLeft="0dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="15dp"
+                        android:paddingRight="15dp"
+                        android:text="@string/so_tien"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/donvi"
+                            android:layout_width="40dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:gravity="center_vertical"
+                            android:paddingStart="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingEnd="5dp"
+                            android:paddingRight="5dp"
+                            android:text="@string/dd"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/total"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_toStartOf="@+id/donvi"
+                            android:layout_toLeftOf="@+id/donvi"
+                            android:autofillHints="000"
+                            android:backgroundTint="#4DD0E1"
+                            android:gravity="end|center_vertical"
+                            android:inputType="numberSigned"
+                            android:paddingEnd="5dp"
+                            android:paddingRight="5dp"
+                            android:text="@string/_000"
+                            android:textColor="#EE5361"
+                            android:textSize="35sp"
+                            android:textStyle="bold"
+                            tools:ignore="LabelFor,RtlSymmetry" />
+                    </RelativeLayout>
+
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
+
+                        <EditText
+                            android:id="@+id/time"
+                            android:layout_width="80dp"
+                            android:layout_height="70dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="-10dp"
+                            android:layout_marginLeft="-10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            android:autofillHints=""
+                            android:backgroundTint="#4DD0E1"
+                            android:gravity="center"
+                            android:hint="@string/time"
+                            android:inputType="none" />
+
+                        <EditText
+                            android:id="@+id/date"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_toStartOf="@+id/time"
+                            android:layout_toLeftOf="@+id/time"
+                            android:layout_toEndOf="@+id/dateico"
+                            android:layout_toRightOf="@+id/dateico"
+                            android:autofillHints=""
+                            android:backgroundTint="#4DD0E1"
+                            android:hint="@string/date"
+                            android:inputType="none"
+                            android:paddingStart="10dp"
+                            android:paddingLeft="10dp"
+                            tools:ignore="RtlSymmetry,TextFields" />
+
+                        <ImageView
+                            android:id="@+id/dateico"
+                            android:layout_width="40dp"
+                            android:layout_height="70dp"
+                            android:contentDescription="@string/todo"
+                            android:padding="3dp"
+                            android:src="@drawable/add_menu_date" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <EditText
+                            android:id="@+id/description"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_toEndOf="@+id/descriptionico"
+                            android:layout_toRightOf="@+id/descriptionico"
+                            android:autofillHints=""
+                            android:backgroundTint="#4DD0E1"
+                            android:hint="@string/ghi_chu"
+                            android:inputType="text"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp" />
+
+                        <ImageView
+                            android:id="@+id/descriptionico"
+                            android:layout_width="40dp"
+                            android:layout_height="70dp"
+                            android:contentDescription="@string/todo"
+                            android:padding="3dp"
+                            android:src="@drawable/add_menu_description" />
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/divider1"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="vertical">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+
+                            <CheckBox
+                                android:id="@+id/checkBoxN1"
+                                android:layout_width="40dp"
+                                android:layout_height="50dp"
+                                android:onClick="setCheckBoxClickN1"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <ImageView
+                                android:id="@+id/imageViewInfN1"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/todo"
+                                android:onClick="setImageClickN1"
+
+                                android:src="@drawable/nav_info"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/checkBoxN1"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textViewNameN1"
+                                android:layout_width="150dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:onClick="setImageClickN1"
+                                android:text="@string/name_n1"
+                                android:textColor="@color/purple_500"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/imageViewInfN1"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="110dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/textViewNameN1"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+
+                                    android:id="@+id/imageViewUpN1"
+                                    android:layout_width="40dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:background="#888888"
+                                    android:contentDescription="@string/todo"
+                                    android:src="@drawable/add_menu_up"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textViewValueN1"
+                                    android:layout_width="20dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="@string/value"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/imageViewDownN1"
+                                    app:layout_constraintStart_toEndOf="@id/imageViewUpN1"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/imageViewDownN1"
+                                    android:layout_width="40dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:background="#888888"
+                                    android:contentDescription="@string/todo"
+                                    android:src="@drawable/add_menu_down"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/dividerN1"
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="5dp"
+                            android:background="?android:attr/listDivider" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+
+                            <CheckBox
+                                android:id="@+id/checkBoxN2"
+                                android:layout_width="40dp"
+                                android:layout_height="50dp"
+                                android:onClick="setCheckBoxClickN2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <ImageView
+                                android:id="@+id/imageViewInfN2"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/todo"
+                                android:onClick="setImageClickN2"
+                                android:src="@drawable/nav_info"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/checkBoxN2"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textViewNameN2"
+                                android:layout_width="150dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:onClick="setImageClickN2"
+                                android:text="@string/name_n2"
+                                android:textColor="@color/purple_500"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/imageViewInfN2"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="110dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/textViewNameN2"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+
+                                    android:id="@+id/imageViewUpN2"
+                                    android:layout_width="40dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:background="#888888"
+                                    android:contentDescription="@string/todo"
+                                    android:src="@drawable/add_menu_up"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textViewValueN2"
+                                    android:layout_width="20dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="@string/value"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/imageViewDownN2"
+                                    app:layout_constraintStart_toEndOf="@id/imageViewUpN2"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/imageViewDownN2"
+                                    android:layout_width="40dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:background="#888888"
+                                    android:contentDescription="@string/todo"
+                                    android:src="@drawable/add_menu_down"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/dividerN2"
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="5dp"
+                            android:background="?android:attr/listDivider" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+
+                            <CheckBox
+                                android:id="@+id/checkBoxN3"
+                                android:layout_width="40dp"
+                                android:layout_height="50dp"
+                                android:onClick="setCheckBoxClickN3"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <ImageView
+                                android:id="@+id/imageViewInfN3"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/todo"
+                                android:onClick="setImageClickN3"
+                                android:src="@drawable/nav_info"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/checkBoxN3"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textViewNameN3"
+                                android:layout_width="150dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:onClick="setImageClickN3"
+                                android:text="@string/name_n3"
+                                android:textColor="@color/purple_500"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/imageViewInfN3"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="110dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/textViewNameN3"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+
+                                    android:id="@+id/imageViewUpN3"
+                                    android:layout_width="40dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:background="#888888"
+                                    android:contentDescription="@string/todo"
+                                    android:src="@drawable/add_menu_up"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textViewValueN3"
+                                    android:layout_width="20dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="@string/value"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/imageViewDownN3"
+                                    app:layout_constraintStart_toEndOf="@id/imageViewUpN3"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/imageViewDownN3"
+                                    android:layout_width="40dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:background="#888888"
+                                    android:contentDescription="@string/todo"
+                                    android:src="@drawable/add_menu_down"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/dividerN3"
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="5dp"
+                            android:background="?android:attr/listDivider" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+
+                            <CheckBox
+                                android:id="@+id/checkBoxN4"
+                                android:layout_width="40dp"
+                                android:layout_height="50dp"
+                                android:onClick="setCheckBoxClickN4"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <ImageView
+                                android:id="@+id/imageViewInfN4"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/todo"
+                                android:onClick="setImageClickN4"
+                                android:src="@drawable/nav_info"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/checkBoxN4"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textViewNameN4"
+                                android:layout_width="150dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:onClick="setImageClickN4"
+                                android:text="@string/name_n4"
+                                android:textColor="@color/purple_500"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/imageViewInfN4"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="110dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/textViewNameN4"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+
+                                    android:id="@+id/imageViewUpN4"
+                                    android:layout_width="40dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:background="#888888"
+                                    android:contentDescription="@string/todo"
+                                    android:src="@drawable/add_menu_up"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textViewValueN4"
+                                    android:layout_width="20dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="@string/value"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/imageViewDownN4"
+                                    app:layout_constraintStart_toEndOf="@id/imageViewUpN4"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/imageViewDownN4"
+                                    android:layout_width="40dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:background="#888888"
+                                    android:contentDescription="@string/todo"
+                                    android:src="@drawable/add_menu_down"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/cancel"
+                            android:layout_width="170dp"
+                            android:layout_height="70dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:text="@string/huy"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            app:backgroundTint="#EF5362"
+                            app:icon="@drawable/add_menu_cancel"
+                            app:iconGravity="textStart"
+                            app:iconPadding="10dp"
+                            app:iconSize="40dp"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/save"
+                            android:layout_width="170dp"
+                            android:layout_height="70dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="@string/luu"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            app:backgroundTint="#00AFF0"
+                            app:icon="@drawable/add_menu_save"
+                            app:iconGravity="textStart"
+                            app:iconPadding="10dp"
+                            app:iconSize="40dp"
+                            tools:ignore="ButtonStyle" />
+                    </LinearLayout>
                 </LinearLayout>
-
-                <View
-                    android:id="@+id/divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="?android:attr/listDivider"></View>
-
-                <View
-                    android:id="@+id/divider1"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="?android:attr/listDivider"></View>
-            </LinearLayout>
-
+            </ScrollView>
         </LinearLayout>
+
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigationView"
@@ -113,6 +656,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
 
                 <ImageView
@@ -121,20 +665,21 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="200dp"
+                    android:contentDescription="@string/todo"
                     android:paddingTop="10dp"
-                    android:src="@drawable/nav_info"></ImageView>
+                    android:src="@drawable/nav_info" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/displayName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:paddingBottom="30dp"
-                    android:text="Quân Jullian"
+                    android:text="@string/name"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/signout"
@@ -143,12 +688,11 @@
                     android:layout_gravity="center"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Đăng xuất"
+                    android:text="@string/sign_out"
                     android:textColor="@color/purple_700"
                     android:textSize="20sp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold" />
             </LinearLayout>
-
         </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 </LinearLayout>

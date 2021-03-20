@@ -1,9 +1,11 @@
 package com.dofl.qlct.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,15 +43,19 @@ public class HistoryActivity extends AppCompatActivity implements HistoryInterfa
 
     /****************************Init Value***************************/
     private void initValue() {
+        account = BundlePackage.getBundleAccount(getIntent());
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawerLayout);
 
+        TextView textView = findViewById(R.id.displayName);
+        textView.setText(account.getDisplayName());
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        account = BundlePackage.getBundle(getIntent());
         historyPresenter = new HistoryPresenter(this);
         recordArrayList = historyPresenter.getRecordHistory(account);
     }
@@ -58,6 +64,14 @@ public class HistoryActivity extends AppCompatActivity implements HistoryInterfa
         ListView listView = findViewById(R.id.list);
         ListViewAdapterHistoryLayout listViewAdapterHistoryLayout = new ListViewAdapterHistoryLayout(this, recordArrayList);
         listView.setAdapter(listViewAdapterHistoryLayout);
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(HistoryActivity.this, HistoryDetailActivity.class);
+            intent.putExtras(BundlePackage.setBundleAccount(account));
+            intent.putExtras(BundlePackage.setBundleRecord(recordArrayList.get(position)));
+            startActivity(intent);
+            this.finish();
+        });
     }
 
 

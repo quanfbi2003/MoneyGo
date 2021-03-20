@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -20,9 +21,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:autofillHints="Username"
         android:backgroundTint="#A49C9C"
         android:hint="Username"
-        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:inputType="textNoSuggestions"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
@@ -31,8 +34,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:autofillHints="Password"
         android:backgroundTint="#A49C9C"
         android:hint="Password"
+        android:imeOptions="actionDone"
         android:inputType="numberPassword|numberSigned"
         android:singleLine="true"
         android:textColor="@color/black"

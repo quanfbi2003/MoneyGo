@@ -16,6 +16,7 @@ public class AddPresenter {
     }
 
     public void addRecord(Record record) {
+        record.setQty(record.getN1_qty() + record.getN2_qty() + record.getN3_qty() + record.getN4_qty());
         if (record.getQty() != 0 && !record.getDescription().trim().isEmpty() && record.getTotal() != 0) {
             try {
                 Connection connection = JDBC.getConnection();

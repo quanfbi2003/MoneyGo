@@ -27,6 +27,7 @@ public class HistoryPresenter {
                 ResultSet resultSet;
                 String query = "SELECT * FROM record WHERE buyer ='" + account.getId() + "' AND package_number = '" + account.getPackageNumber() + "'";
                 Statement statement = connection.createStatement();
+                Log.e("Log: ", query);
                 resultSet = statement.executeQuery(query);//thực thi lệnh, trả về số dòng thực hiện dc
 
                 while (resultSet.next()) {

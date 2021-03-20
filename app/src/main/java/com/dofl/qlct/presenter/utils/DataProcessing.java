@@ -4,10 +4,12 @@ import com.dofl.qlct.model.Record;
 
 public class DataProcessing {
     public static Record processing(Record record) {
-        double n1_total = ((double) record.getTotal() / record.getQty()) * record.getN1_qty();
-        double n2_total = ((double) record.getTotal() / record.getQty()) * record.getN2_qty();
-        double n3_total = ((double) record.getTotal() / record.getQty()) * record.getN3_qty();
-        double n4_total = ((double) record.getTotal() / record.getQty()) * record.getN4_qty();
+        record.setQty(record.getN1_qty() + record.getN2_qty() + record.getN3_qty() + record.getN4_qty());
+
+        int n1_total = (int) (((double) record.getTotal() / record.getQty()) * record.getN1_qty());
+        int n2_total = (int) (((double) record.getTotal() / record.getQty()) * record.getN2_qty());
+        int n3_total = (int) (((double) record.getTotal() / record.getQty()) * record.getN3_qty());
+        int n4_total = (int) (((double) record.getTotal() / record.getQty()) * record.getN4_qty());
 
         switch (record.getBuyer()) {
             case 1:

@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.HistoryDetailActivity">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+
+                app:title="@string/app_name"
+                app:titleTextColor="@color/white" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/icon"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:src="@mipmap/ic_launcher"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/date" />
+
+                        <TextView
+                            android:id="@+id/description"
+                            android:layout_width="210dp"
+                            android:layout_height="50dp"
+                            android:gravity="center"
+                            android:isScrollContainer="true"
+                            android:text="Mua rau mua cá mua cả bầu trời "
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            app:layout_constraintEnd_toStartOf="@+id/total"
+                            app:layout_constraintStart_toEndOf="@+id/icon"
+                            app:layout_constraintTop_toBottomOf="@+id/date" />
+
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_width="283dp"
+                            android:layout_height="25dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="Chủ nhật - 13/3/1999"
+                            android:textColor="#9C27B0"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginRight="15dp"
+                            android:text="12:12"
+                            android:textColor="#9C27B0"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginEnd="9dp"
+                            android:layout_marginRight="9dp"
+                            android:text="500000 đ"
+                            android:textColor="#FF0000"
+                            android:textSize="17sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/time" />
+
+                        <View
+                            android:id="@+id/divider3"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="?android:attr/listDivider"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/description" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayoutN1"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:background="@drawable/blue_border_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewInfN1"
+                            android:layout_width="130dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/todo"
+                            android:src="@drawable/nav_info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.301" />
+
+                        <TextView
+                            android:id="@+id/textViewNameN1"
+                            android:layout_width="130dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/name_n1"
+                            android:textColor="@color/purple_500"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/imageViewInfN1"
+                            app:layout_constraintStart_toStartOf="@+id/imageViewInfN1"
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewInfN1"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/textView1N1"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền đã mua: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTDMN1"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textViewSTDMN1"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="500000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView2N1"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền còn nợ: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN1"
+                            app:layout_constraintStart_toStartOf="@+id/textView1N1"
+                            app:layout_constraintTop_toBottomOf="@+id/textView1N1" />
+
+                        <TextView
+                            android:id="@+id/textViewSTCNN1"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="400000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTDMN1" />
+
+                        <TextView
+                            android:id="@+id/textView3N1"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền còn thừa: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN1"
+                            app:layout_constraintStart_toStartOf="@+id/textView2N1"
+                            app:layout_constraintTop_toBottomOf="@+id/textView2N1" />
+
+                        <TextView
+                            android:id="@+id/textViewSTCTN1"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="100000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTCNN1" />
+
+                        <TextView
+                            android:id="@+id/textView4N1"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Tỷ lệ tham gia: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewTLTGN1"
+                            app:layout_constraintStart_toStartOf="@+id/textView3N1"
+                            app:layout_constraintTop_toBottomOf="@+id/textView3N1" />
+
+                        <TextView
+                            android:id="@+id/textViewTLTGN1"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="1/4"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTCTN1" />
+
+
+                        <View
+                            android:id="@+id/dividerN1"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent"
+                            android:background="?android:attr/listDivider"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN1"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewInfN1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/divider1N1"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutN1" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayoutN2"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:background="@drawable/blue_border_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider1N1">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewInfN2"
+                            android:layout_width="130dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/todo"
+                            android:src="@drawable/nav_info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.301" />
+
+                        <TextView
+                            android:id="@+id/textViewNameN2"
+                            android:layout_width="130dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/name_n2"
+                            android:textColor="@color/purple_500"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/imageViewInfN2"
+                            app:layout_constraintStart_toStartOf="@+id/imageViewInfN2"
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewInfN2"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/textView1N2"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền đã mua: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTDMN2"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textViewSTDMN2"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="500000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView2N2"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền còn nợ: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN2"
+                            app:layout_constraintStart_toStartOf="@+id/textView1N2"
+                            app:layout_constraintTop_toBottomOf="@+id/textView1N2" />
+
+                        <TextView
+                            android:id="@+id/textViewSTCNN2"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="400000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTDMN2" />
+
+                        <TextView
+                            android:id="@+id/textView3N2"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền còn thừa: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN2"
+                            app:layout_constraintStart_toStartOf="@+id/textView2N2"
+                            app:layout_constraintTop_toBottomOf="@+id/textView2N2" />
+
+                        <TextView
+                            android:id="@+id/textViewSTCTN2"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="100000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTCNN2" />
+
+                        <TextView
+                            android:id="@+id/textView4N2"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Tỷ lệ tham gia: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewTLTGN2"
+                            app:layout_constraintStart_toStartOf="@+id/textView3N2"
+                            app:layout_constraintTop_toBottomOf="@+id/textView3N2" />
+
+                        <TextView
+                            android:id="@+id/textViewTLTGN2"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="1/4"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTCTN2" />
+
+
+                        <View
+                            android:id="@+id/dividerN2"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent"
+                            android:background="?android:attr/listDivider"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN2"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewInfN2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/divider1N2"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutN2" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayoutN3"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:background="@drawable/blue_border_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider1N2">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewInfN3"
+                            android:layout_width="130dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/todo"
+                            android:src="@drawable/nav_info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.301" />
+
+                        <TextView
+                            android:id="@+id/textViewNameN3"
+                            android:layout_width="130dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/name_n3"
+                            android:textColor="@color/purple_500"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/imageViewInfN3"
+                            app:layout_constraintStart_toStartOf="@+id/imageViewInfN3"
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewInfN3"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/textView1N3"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền đã mua: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTDMN3"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textViewSTDMN3"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="500000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView2N3"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền còn nợ: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN3"
+                            app:layout_constraintStart_toStartOf="@+id/textView1N3"
+                            app:layout_constraintTop_toBottomOf="@+id/textView1N3" />
+
+                        <TextView
+                            android:id="@+id/textViewSTCNN3"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="400000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTDMN3" />
+
+                        <TextView
+                            android:id="@+id/textView3N3"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền còn thừa: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN3"
+                            app:layout_constraintStart_toStartOf="@+id/textView2N3"
+                            app:layout_constraintTop_toBottomOf="@+id/textView2N3" />
+
+                        <TextView
+                            android:id="@+id/textViewSTCTN3"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="100000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTCNN3" />
+
+                        <TextView
+                            android:id="@+id/textView4N3"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Tỷ lệ tham gia: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewTLTGN3"
+                            app:layout_constraintStart_toStartOf="@+id/textView3N3"
+                            app:layout_constraintTop_toBottomOf="@+id/textView3N3" />
+
+                        <TextView
+                            android:id="@+id/textViewTLTGN3"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="1/4"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTCTN3" />
+
+
+                        <View
+                            android:id="@+id/dividerN3"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent"
+                            android:background="?android:attr/listDivider"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN3"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewInfN3"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/divider1N3"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutN3" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayoutN4"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:background="@drawable/blue_border_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider1N3">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewInfN4"
+                            android:layout_width="130dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/todo"
+                            android:src="@drawable/nav_info"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.301" />
+
+                        <TextView
+                            android:id="@+id/textViewNameN4"
+                            android:layout_width="130dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/name_n4"
+                            android:textColor="@color/purple_500"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/imageViewInfN4"
+                            app:layout_constraintStart_toStartOf="@+id/imageViewInfN4"
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewInfN4"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/textView1N4"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền đã mua: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTDMN4"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textViewSTDMN4"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="500000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView2N4"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền còn nợ: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN4"
+                            app:layout_constraintStart_toStartOf="@+id/textView1N4"
+                            app:layout_constraintTop_toBottomOf="@+id/textView1N4" />
+
+                        <TextView
+                            android:id="@+id/textViewSTCNN4"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="400000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTDMN4" />
+
+                        <TextView
+                            android:id="@+id/textView3N4"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Số tiền còn thừa: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN4"
+                            app:layout_constraintStart_toStartOf="@+id/textView2N4"
+                            app:layout_constraintTop_toBottomOf="@+id/textView2N4" />
+
+                        <TextView
+                            android:id="@+id/textViewSTCTN4"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="100000 đ"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTCNN4" />
+
+                        <TextView
+                            android:id="@+id/textView4N4"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="end|center"
+                            android:text="Tỷ lệ tham gia: "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewTLTGN4"
+                            app:layout_constraintStart_toStartOf="@+id/textView3N4"
+                            app:layout_constraintTop_toBottomOf="@+id/textView3N4" />
+
+                        <TextView
+                            android:id="@+id/textViewTLTGN4"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="start|center"
+                            android:text="1/4"
+                            android:textColor="#FF0000"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewSTCTN4" />
+
+
+                        <View
+                            android:id="@+id/dividerN4"
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent"
+                            android:background="?android:attr/listDivider"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewSTCNN4"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewInfN4"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/divider1N4"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutN4" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/delete"
+                            android:layout_width="170dp"
+                            android:layout_height="70dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:text="Xoá"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            app:backgroundTint="#EF5362"
+                            app:icon="@drawable/add_menu_cancel"
+                            app:iconGravity="textStart"
+                            app:iconPadding="10dp"
+                            app:iconSize="40dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/edit"
+                            android:layout_width="170dp"
+                            android:layout_height="70dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:text="Sửa"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            app:backgroundTint="#00AFF0"
+                            app:icon="@drawable/add_menu_save"
+                            app:iconGravity="textStart"
+                            app:iconPadding="10dp"
+                            app:iconSize="40dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ButtonStyle" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="200dp"
+                    android:contentDescription="@string/todo"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/nav_info" />
+
+                <TextView
+                    android:id="@+id/displayName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="30dp"
+                    android:text="@string/name"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/signout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/sign_out"
+                    android:textColor="@color/purple_700"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.navigation.NavigationView>
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

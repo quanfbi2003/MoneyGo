@@ -1,8 +1,7 @@
 package com.dofl.qlct.view.activity;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -24,34 +23,27 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.dofl.qlct.R;
 import com.dofl.qlct.model.Account;
 import com.dofl.qlct.model.Record;
-import com.dofl.qlct.presenter.AddInterface;
-import com.dofl.qlct.presenter.AddPresenter;
+import com.dofl.qlct.presenter.EditHistoryInterface;
+import com.dofl.qlct.presenter.EditHistoryPresenter;
 import com.dofl.qlct.presenter.utils.BundlePackage;
 import com.dofl.qlct.presenter.utils.HideKeyboard;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 
-public class AddActivity extends AppCompatActivity implements AddInterface {
-    private EditText dateText;
-    private EditText timeText;
-    private Calendar myCalendar;
+public class EditHistoryActivity extends AppCompatActivity implements EditHistoryInterface {
     private DrawerLayout drawerLayout;
     private Account account;
-    private AddPresenter addPresenter;
-    private Date date;
+    private Record record;
+    private EditHistoryPresenter editHistoryPresenter;
 
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_edit_history);
 
         initValue();
-        onCreateDateAndTime();
+        importValue();
         setImageBehavior();
         setImageButtonListener();
         setOnClickFunctionButton();
@@ -61,6 +53,7 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
     /****************************Initial Value***************************/
     private void initValue() {
         account = BundlePackage.getBundleAccount(getIntent());
+        record = BundlePackage.getBundleRecord(getIntent());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,9 +69,63 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
         EditText total = findViewById(R.id.total);
         total.setSelection(0);
 
-        addPresenter = new AddPresenter(this);
+        editHistoryPresenter = new EditHistoryPresenter(this);
 
-        new Thread(() -> HideKeyboard.setupUI(findViewById(R.id.add_view), AddActivity.this)).start();
+        new Thread(() -> HideKeyboard.setupUI(findViewById(R.id.edit_history_view), EditHistoryActivity.this)).start();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void importValue() {
+        EditText total = findViewById(R.id.total);
+        EditText time = findViewById(R.id.time);
+        EditText dateText = findViewById(R.id.date);
+        EditText description = findViewById(R.id.description);
+        CheckBox checkBoxN1 = findViewById(R.id.checkBoxN1);
+        CheckBox checkBoxN2 = findViewById(R.id.checkBoxN2);
+        CheckBox checkBoxN3 = findViewById(R.id.checkBoxN3);
+        CheckBox checkBoxN4 = findViewById(R.id.checkBoxN4);
+        TextView textViewValueN1 = findViewById(R.id.textViewValueN1);
+        TextView textViewValueN2 = findViewById(R.id.textViewValueN2);
+        TextView textViewValueN3 = findViewById(R.id.textViewValueN3);
+        TextView textViewValueN4 = findViewById(R.id.textViewValueN4);
+
+        total.setText(Integer.toString(record.getTotal()));
+        time.setText(record.getTime_create());
+        dateText.setText(record.getDate_create());
+        description.setText(record.getDescription());
+
+        if (record.getN1_qty() != 0) {
+            checkBoxN1.setChecked(false);
+            setImageClickN1(findViewById(R.id.edit_history_view));
+            textViewValueN1.setText(Integer.toString(record.getN1_qty()));
+        } else {
+            checkBoxN1.setChecked(true);
+            setImageClickN1(findViewById(R.id.edit_history_view));
+        }
+        if (record.getN2_qty() != 0) {
+            checkBoxN2.setChecked(false);
+            setImageClickN2(findViewById(R.id.edit_history_view));
+            textViewValueN2.setText(Integer.toString(record.getN2_qty()));
+        } else {
+            checkBoxN2.setChecked(true);
+            setImageClickN2(findViewById(R.id.edit_history_view));
+        }
+        if (record.getN3_qty() != 0) {
+            checkBoxN3.setChecked(false);
+            setImageClickN3(findViewById(R.id.edit_history_view));
+            textViewValueN3.setText(Integer.toString(record.getN3_qty()));
+        } else {
+            checkBoxN3.setChecked(true);
+            setImageClickN3(findViewById(R.id.edit_history_view));
+        }
+        if (record.getN4_qty() != 0) {
+            checkBoxN4.setChecked(false);
+            setImageClickN4(findViewById(R.id.edit_history_view));
+            textViewValueN4.setText(Integer.toString(record.getN4_qty()));
+        } else {
+            checkBoxN4.setChecked(true);
+            setImageClickN4(findViewById(R.id.edit_history_view));
+        }
     }
 
 
@@ -94,6 +141,13 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
         if (item.getItemId() == R.id.top_bar_info) {
             drawerLayout.openDrawer(GravityCompat.END);
         }
+        if (item.getItemId() == android.R.id.home) {
+            Intent intent = new Intent(EditHistoryActivity.this, HistoryActivity.class);
+            intent.putExtras(BundlePackage.setBundleAccount(account));
+            startActivity(intent);
+            this.finish();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -101,64 +155,6 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
-    }
-
-
-    /****************************OnCreate Date And Time***************************/
-    private void onCreateDateAndTime() {
-        myCalendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener d = (view, year, monthOfYear, dayOfMonth) -> {
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateLabel();
-        };
-        TimePickerDialog.OnTimeSetListener t = (view, hourOfDay, minute) -> {
-            myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            myCalendar.set(Calendar.MINUTE, minute);
-            updateLabel();
-        };
-        dateText = findViewById(R.id.date);
-        dateText.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(AddActivity.this, d,
-                    myCalendar.get(Calendar.YEAR),
-                    myCalendar.get(Calendar.MONTH),
-                    myCalendar.get(Calendar.DAY_OF_MONTH));
-            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
-            datePickerDialog.show();
-        });
-        dateText.setKeyListener(null);
-
-        timeText = findViewById(R.id.time);
-        timeText.setOnClickListener(v -> {
-            TimePickerDialog timePickerDialog = new TimePickerDialog(AddActivity.this, t,
-                    myCalendar.get(Calendar.HOUR_OF_DAY),
-                    myCalendar.get(Calendar.MINUTE), true);
-            timePickerDialog.show();
-        });
-        timeText.setKeyListener(null);
-        updateLabel();
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void updateLabel() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("u-dd/MM/yyyy", Locale.getDefault());
-        String[] list = {"Hôm nay", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy", "Chủ nhật", "Hôm qua"};
-        this.date = myCalendar.getTime();
-        String[] date = simpleDateFormat.format(this.date).split("-");
-        String[] date1 = date[1].split("/");
-        String[] date1now = simpleDateFormat.format(new Date().getTime()).split("-");
-        String[] date1now1 = date1now[1].split("/");
-        if (date[1].equalsIgnoreCase(date1now[1])) {
-            dateText.setText(list[0] + " - " + date[1]);
-        } else if (date1[2].equalsIgnoreCase(date1now1[2]) && date1[1].equalsIgnoreCase(date1now1[1]) && Integer.parseInt(date1now1[0]) - Integer.parseInt(date1[0]) == 1) {
-            dateText.setText(list[8] + " - " + date[1]);
-        } else {
-            dateText.setText(list[Integer.parseInt(date[0])] + " - " + date[1]);
-        }
-
-        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        timeText.setText(simpleTimeFormat.format(myCalendar.getTime()));
     }
 
 
@@ -399,13 +395,16 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
 
     /****************************Interface Functions***************************/
     @Override
-    public void addSuccess() {
-        reset();
-        Toast.makeText(getApplicationContext(), "Add successfully!!!", Toast.LENGTH_SHORT).show();
+    public void editSuccess() {
+        Toast.makeText(getApplicationContext(), "Edit successfully!!!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(EditHistoryActivity.this, HistoryActivity.class);
+        intent.putExtras(BundlePackage.setBundleAccount(account));
+        startActivity(intent);
+        this.finish();
     }
 
     @Override
-    public void addError(String msg) {
+    public void editError(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -422,7 +421,6 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
 
         findViewById(R.id.save).setOnClickListener(v -> {
             EditText total = findViewById(R.id.total);
-            EditText time = findViewById(R.id.time);
             EditText description = findViewById(R.id.description);
             CheckBox checkBoxN1 = findViewById(R.id.checkBoxN1);
             TextView textViewValueN1 = findViewById(R.id.textViewValueN1);
@@ -432,9 +430,7 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
             TextView textViewValueN3 = findViewById(R.id.textViewValueN3);
             CheckBox checkBoxN4 = findViewById(R.id.checkBoxN4);
             TextView textViewValueN4 = findViewById(R.id.textViewValueN4);
-            Record record = new Record();
             record.setTotal(Integer.parseInt(total.getText().toString()));
-            record.setBuyer(account.getId());
 
             if (checkBoxN1.isChecked()) {
                 int temp = Integer.parseInt(textViewValueN1.getText().toString());
@@ -460,45 +456,9 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
             } else {
                 record.setN4_qty(0);
             }
-
-            record.setTime_create(time.getText().toString());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("u-dd/MM/yyyy", Locale.getDefault());
-            String[] list = {"Hôm nay", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy", "Chủ nhật", "Hôm qua"};
-            String[] date = simpleDateFormat.format(this.date).split("-");
-            record.setDate_create(list[Integer.parseInt(date[0])] + " - " + date[1]);
-            record.setPackage_number(account.getPackageNumber());
             record.setDescription(description.getText().toString());
 
-            addPresenter.addRecord(record);
+            editHistoryPresenter.editRecord(record);
         });
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void reset() {
-        EditText total = findViewById(R.id.total);
-        EditText time = findViewById(R.id.time);
-        EditText dateText = findViewById(R.id.date);
-        EditText description = findViewById(R.id.description);
-        CheckBox checkBoxN1 = findViewById(R.id.checkBoxN1);
-        CheckBox checkBoxN2 = findViewById(R.id.checkBoxN2);
-        CheckBox checkBoxN3 = findViewById(R.id.checkBoxN3);
-        CheckBox checkBoxN4 = findViewById(R.id.checkBoxN4);
-
-        total.setText("000");
-        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        time.setText(simpleTimeFormat.format(new Date().getTime()));
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("u-dd/MM/yyyy", Locale.getDefault());
-        String[] list = {"Hôm nay", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy", "Chủ nhật", "Hôm qua"};
-        String[] date1now = simpleDateFormat.format(new Date().getTime()).split("-");
-        dateText.setText(list[0] + " - " + date1now[1]);
-        description.setText("");
-        checkBoxN1.setChecked(true);
-        checkBoxN2.setChecked(true);
-        checkBoxN3.setChecked(true);
-        checkBoxN4.setChecked(true);
-        setImageClickN1(findViewById(R.id.add_view));
-        setImageClickN2(findViewById(R.id.add_view));
-        setImageClickN3(findViewById(R.id.add_view));
-        setImageClickN4(findViewById(R.id.add_view));
     }
 }
