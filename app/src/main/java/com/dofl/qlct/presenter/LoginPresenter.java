@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class LoginPresenter {
-    private LoginInterface loginInterface;
+    private final LoginInterface loginInterface;
 
     public LoginPresenter(LoginInterface loginInterface) {
         this.loginInterface = loginInterface;
@@ -22,15 +22,19 @@ public class LoginPresenter {
             Connection connection = JDBC.getConnection();
             if (connection != null) {
                 ResultSet resultSet;
-                String query = "SELECT * FROM account WHERE username ='" + account.getUsername() + "' AND password = '" + Hash.md5(account.getPassword()) + "'";
+                String query = "SELECT * FROM Account WHERE Username ='" + account.getUsername() +
+                        "' AND Password = '" + Hash.md5(account.getPassword()) + "'";
                 Statement statement = connection.createStatement();
                 resultSet = statement.executeQuery(query);//thực thi lệnh, trả về số dòng thực hiện dc
 
                 if (resultSet.next()) {
-                    account.setId(resultSet.getInt("id"));
-                    account.setDisplayName(resultSet.getString("display_name"));
-                    account.setRole(resultSet.getString("role"));
-                    account.setPackageNumber(resultSet.getInt("package_number"));
+                    account.setId(resultSet.getInt("Id"));
+                    account.setDisplayName(resultSet.getString("DisplayName"));
+                    account.setRole(resultSet.getString("Role"));
+                    account.setPackageNumber(resultSet.getInt("PackageNumber"));
+                    account.setStartDate(resultSet.getString("StartDate"));
+                    account.setPreviousMoney(resultSet.getInt("PreviousMoney"));
+                    account.setMoneyPaid(resultSet.getInt("MoneyPaid"));
                     loginInterface.loginSuccess(account);
                     Log.e("Log", "Login successfully!!!");
                     connection.close();
@@ -45,7 +49,7 @@ public class LoginPresenter {
         } catch (Exception ex) {
             Log.e("ERUs", ex.getMessage());
         }
-
-
     }
+
+
 }

@@ -1,55 +1,80 @@
 package com.dofl.qlct.model;
 
 public class Record {
-    private int id;
+    private String id;
     private int total;
     private String description;
-    private String time_create;
-    private String date_create;
+    private String timeCreate;
+    private String dateCreate;
     private int buyer;
-    private int n1_qty;
-    private int n2_qty;
-    private int n3_qty;
-    private int n4_qty;
-    private int package_number;
+    private int n1Qty;
+    private int n2Qty;
+    private int n3Qty;
+    private int n4Qty;
+    private int packageNumber;
     private int qty;
-    private int n1_total;
-    private int n2_total;
-    private int n3_total;
-    private int n4_total;
+    private int n1Total;
+    private int n2Total;
+    private int n3Total;
+    private int n4Total;
     private int icon;
 
     public Record() {
     }
 
-    public Record(int id, int total, String description, String time_create, String date_create, int buyer, int n1_qty, int n2_qty, int n3_qty, int n4_qty, int package_number) {
+    public Record(String id, int total, String description, String timeCreate, String dateCreate,
+                  int buyer, int n1Qty, int n2Qty, int n3Qty, int n4Qty, int packageNumber) {
         this.id = id;
         this.total = total;
         this.description = description;
-        this.time_create = time_create;
-        this.date_create = date_create;
+        this.timeCreate = timeCreate;
+        this.dateCreate = dateCreate;
         this.buyer = buyer;
-        this.n1_qty = n1_qty;
-        this.n2_qty = n2_qty;
-        this.n3_qty = n3_qty;
-        this.n4_qty = n4_qty;
-        this.package_number = package_number;
+        this.n1Qty = n1Qty;
+        this.n2Qty = n2Qty;
+        this.n3Qty = n3Qty;
+        this.n4Qty = n4Qty;
+        this.packageNumber = packageNumber;
     }
 
-    public int getId() {
+    public Record(String id, int total, String description, String timeCreate, String dateCreate,
+                  int buyer, int n1Qty, int n2Qty, int n3Qty, int n4Qty, int packageNumber,
+                  int icon) {
+        this.id = id;
+        this.total = total;
+        this.description = description;
+        this.timeCreate = timeCreate;
+        this.dateCreate = dateCreate;
+        this.buyer = buyer;
+        this.n1Qty = n1Qty;
+        this.n2Qty = n2Qty;
+        this.n3Qty = n3Qty;
+        this.n4Qty = n4Qty;
+        this.packageNumber = packageNumber;
+        this.qty = qty;
+        this.icon = icon;
+    }
+
+    public Record(int total, String description, String timeCreate, String dateCreate, int buyer,
+                  int n1Qty, int n2Qty, int n3Qty, int n4Qty, int packageNumber) {
+        this.total = total;
+        this.description = description;
+        this.timeCreate = timeCreate;
+        this.dateCreate = dateCreate;
+        this.buyer = buyer;
+        this.n1Qty = n1Qty;
+        this.n2Qty = n2Qty;
+        this.n3Qty = n3Qty;
+        this.n4Qty = n4Qty;
+        this.packageNumber = packageNumber;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public int getIcon() {
-        return icon;
-    }
-
-    public void setIcon(int icon) {
-        this.icon = icon;
     }
 
     public int getTotal() {
@@ -68,36 +93,20 @@ public class Record {
         this.description = description;
     }
 
-    public int getN1_qty() {
-        return n1_qty;
+    public String getTimeCreate() {
+        return timeCreate;
     }
 
-    public void setN1_qty(int n1_qty) {
-        this.n1_qty = n1_qty;
+    public void setTimeCreate(String timeCreate) {
+        this.timeCreate = timeCreate;
     }
 
-    public int getN2_qty() {
-        return n2_qty;
+    public String getDateCreate() {
+        return dateCreate;
     }
 
-    public void setN2_qty(int n2_qty) {
-        this.n2_qty = n2_qty;
-    }
-
-    public int getN3_qty() {
-        return n3_qty;
-    }
-
-    public void setN3_qty(int n3_qty) {
-        this.n3_qty = n3_qty;
-    }
-
-    public int getN4_qty() {
-        return n4_qty;
-    }
-
-    public void setN4_qty(int n4_qty) {
-        this.n4_qty = n4_qty;
+    public void setDateCreate(String dateCreate) {
+        this.dateCreate = dateCreate;
     }
 
     public int getBuyer() {
@@ -108,28 +117,44 @@ public class Record {
         this.buyer = buyer;
     }
 
-    public String getTime_create() {
-        return time_create;
+    public int getN1Qty() {
+        return n1Qty;
     }
 
-    public void setTime_create(String time_create) {
-        this.time_create = time_create;
+    public void setN1Qty(int n1Qty) {
+        this.n1Qty = n1Qty;
     }
 
-    public String getDate_create() {
-        return date_create;
+    public int getN2Qty() {
+        return n2Qty;
     }
 
-    public void setDate_create(String date_create) {
-        this.date_create = date_create;
+    public void setN2Qty(int n2Qty) {
+        this.n2Qty = n2Qty;
     }
 
-    public int getPackage_number() {
-        return package_number;
+    public int getN3Qty() {
+        return n3Qty;
     }
 
-    public void setPackage_number(int package_number) {
-        this.package_number = package_number;
+    public void setN3Qty(int n3Qty) {
+        this.n3Qty = n3Qty;
+    }
+
+    public int getN4Qty() {
+        return n4Qty;
+    }
+
+    public void setN4Qty(int n4Qty) {
+        this.n4Qty = n4Qty;
+    }
+
+    public int getPackageNumber() {
+        return packageNumber;
+    }
+
+    public void setPackageNumber(int packageNumber) {
+        this.packageNumber = packageNumber;
     }
 
     public int getQty() {
@@ -140,36 +165,45 @@ public class Record {
         this.qty = qty;
     }
 
-    public int getN1_total() {
-        return n1_total;
+    public int getN1Total() {
+        return n1Total;
     }
 
-    public void setN1_total(int n1_total) {
-        this.n1_total = n1_total;
+    public void setN1Total(int n1Total) {
+        this.n1Total = n1Total;
     }
 
-    public int getN2_total() {
-        return n2_total;
+    public int getN2Total() {
+        return n2Total;
     }
 
-    public void setN2_total(int n2_total) {
-        this.n2_total = n2_total;
+    public void setN2Total(int n2Total) {
+        this.n2Total = n2Total;
     }
 
-    public int getN3_total() {
-        return n3_total;
+    public int getN3Total() {
+        return n3Total;
     }
 
-    public void setN3_total(int n3_total) {
-        this.n3_total = n3_total;
+    public void setN3Total(int n3Total) {
+        this.n3Total = n3Total;
     }
 
-    public int getN4_total() {
-        return n4_total;
+    public int getN4Total() {
+        return n4Total;
     }
 
-    public void setN4_total(int n4_total) {
-        this.n4_total = n4_total;
+    public void setN4Total(int n4Total) {
+        this.n4Total = n4Total;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 }
+
 

@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Quản lí chi tiêu</string>
+    <string name="app_name">Money Go!</string>
     <string name="info">Information</string>
     <string name="information">Information</string>
     <string name="dd"><u>đ</u></string>
-    <string name="_000">000</string>
+    <string name="_000">0</string>
     <string name="todo">TODO</string>
     <string name="time">Giờ</string>
     <string name="huy">Huỷ</string>
@@ -18,4 +18,11 @@
     <string name="sign_out">Đăng xuất</string>
     <string name="name_n3">Vũ Trường Sơn</string>
     <string name="name_n4">Nguyễn Xuân Lâm</string>
+    <string-array name="spinner">
+        <item>Quân Jullian</item>
+        <item>Nguyễn Doãn Sơn</item>
+        <item>Vũ Trường Sơn</item>
+        <item>Nguyễn Xuân Lâm</item>
+        <item>Mạng Hàng Xóm</item>
+    </string-array>
 </resources>

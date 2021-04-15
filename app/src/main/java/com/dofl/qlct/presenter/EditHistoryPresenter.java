@@ -16,24 +16,24 @@ public class EditHistoryPresenter {
     }
 
     public void editRecord(Record record) {
-        record.setQty(record.getN1_qty() + record.getN2_qty() + record.getN3_qty() + record.getN4_qty());
+        record.setQty(record.getN1Qty() + record.getN2Qty() + record.getN3Qty() + record.getN4Qty());
         if (record.getQty() != 0 && !record.getDescription().trim().isEmpty() && record.getTotal() != 0) {
             try {
                 Connection connection = JDBC.getConnection();
                 if (connection != null) {
-                    String query = "UPDATE record SET total = \'" +
-                            record.getTotal() + "\', description = N\'" +
-                            record.getDescription() + "\', n1_qty = \'" +
-                            record.getN1_qty() + "\', n2_qty = \'" +
-                            record.getN2_qty() + "\', n3_qty = \'" +
-                            record.getN3_qty() + "\', n4_qty = \'" +
-                            record.getN4_qty() + "\' WHERE id = \'" + record.getId() + "\'";
+                    String query = "UPDATE Record SET Total = \'" +
+                            record.getTotal() + "\', Description = N\'" +
+                            record.getDescription() + "\', N1Qty = \'" +
+                            record.getN1Qty() + "\', N2Qty = \'" +
+                            record.getN2Qty() + "\', N3Qty = \'" +
+                            record.getN3Qty() + "\', N4Qty = \'" +
+                            record.getN4Qty() + "\' WHERE Id = \'" + record.getId() + "\'";
                     Log.e("Log", query);
                     Statement stmt = connection.createStatement();
                     int result = stmt.executeUpdate(query);//thực thi lệnh, trả về số dòng thực hiện dc
 
                     if (result == 1) {
-                        editHistoryInterface.editSuccess();
+                        editHistoryInterface.editSuccess(record);
                         Log.e("Log", "Edit successfully!!!");
                         connection.close();
                     } else {

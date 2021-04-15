@@ -7,6 +7,9 @@ public class Account {
     private String role;
     private String displayName;
     private int packageNumber;
+    private String startDate;
+    private int previousMoney;
+    private int moneyPaid;
 
     public Account() {
     }
@@ -16,12 +19,51 @@ public class Account {
         this.password = password;
     }
 
-    public Account(int id, String username, String role, String displayName, int packageNumber) {
+    public Account(int id, String username, String role, String displayName, int packageNumber,
+                   String startDate, int previousMoney, int moneyPaid) {
         this.id = id;
         this.username = username;
         this.role = role;
         this.packageNumber = packageNumber;
         this.displayName = displayName;
+        this.startDate = startDate;
+        this.previousMoney = previousMoney;
+        this.moneyPaid = moneyPaid;
+    }
+
+    public Account(int id, String role, String displayName, int packageNumber, String startDate,
+                   int previousMoney, int moneyPaid) {
+        this.id = id;
+        this.role = role;
+        this.displayName = displayName;
+        this.packageNumber = packageNumber;
+        this.startDate = startDate;
+        this.previousMoney = previousMoney;
+        this.moneyPaid = moneyPaid;
+    }
+
+    public int getMoneyPaid() {
+        return moneyPaid;
+    }
+
+    public void setMoneyPaid(int moneyPaid) {
+        this.moneyPaid = moneyPaid;
+    }
+
+    public int getPreviousMoney() {
+        return previousMoney;
+    }
+
+    public void setPreviousMoney(int previousMoney) {
+        this.previousMoney = previousMoney;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
     public int getId() {

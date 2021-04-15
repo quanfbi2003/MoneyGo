@@ -3,6 +3,7 @@ package com.dofl.qlct.view.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dofl.qlct.R;
 import com.dofl.qlct.model.Account;
+import com.dofl.qlct.model.GlobalVariable;
 import com.dofl.qlct.model.Record;
 import com.dofl.qlct.presenter.HistoryDetailInterface;
 import com.dofl.qlct.presenter.HistoryDetailPresenter;
@@ -27,6 +29,7 @@ public class HistoryDetailActivity extends AppCompatActivity implements HistoryD
     private DrawerLayout drawerLayout;
     private Account account;
     private Record record;
+    private int accountId;
     private HistoryDetailPresenter historyDetailPresenter;
 
     @Override
@@ -42,8 +45,9 @@ public class HistoryDetailActivity extends AppCompatActivity implements HistoryD
     /****************************Initial Value***************************/
     @SuppressLint("SetTextI18n")
     private void initValue() {
-        account = BundlePackage.getBundleAccount(getIntent());
-        record = BundlePackage.getBundleRecord(getIntent());
+        account = DataProcessing.getAccount(((GlobalVariable) this.getApplication()).getAccount());
+        record = DataProcessing.setTotalOfRecord(BundlePackage.getBundleRecord(getIntent()));
+        accountId = getIntent().getIntExtra("AccountId", 0);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,18 +62,15 @@ public class HistoryDetailActivity extends AppCompatActivity implements HistoryD
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-        record = DataProcessing.processing(record);
-
         TextView date = findViewById(R.id.date);
         TextView time = findViewById(R.id.time);
         TextView description = findViewById(R.id.description);
         TextView total = findViewById(R.id.total);
 
-        date.setText(record.getDate_create());
-        time.setText(record.getTime_create());
+        date.setText(record.getDateCreate());
+        time.setText(record.getTimeCreate());
         description.setText(record.getDescription());
-        total.setText(record.getTotal() + " đ");
+        total.setText(DataProcessing.formatIntToString(record.getTotal()) + " đ");
 
         TextView soTienDaMuaN1 = findViewById(R.id.textViewSTDMN1);
         TextView soTienConNoN1 = findViewById(R.id.textViewSTCNN1);
@@ -77,15 +78,16 @@ public class HistoryDetailActivity extends AppCompatActivity implements HistoryD
         TextView tyLeThamGiaN1 = findViewById(R.id.textViewTLTGN1);
 
         if (record.getBuyer() == 1) {
-            soTienDaMuaN1.setText(record.getTotal() + " đ");
+            soTienDaMuaN1.setText(DataProcessing.formatIntToString(record.getTotal()) + " đ");
             soTienConNoN1.setText("0 đ");
-            soTienConThuaN1.setText(record.getN1_total() * (-1) + " đ");
+            soTienConThuaN1.setText(DataProcessing.
+                    formatIntToString(record.getN1Total() * (-1)) + " đ");
         } else {
             soTienDaMuaN1.setText("0 đ");
-            soTienConNoN1.setText(record.getN1_total() + " đ");
+            soTienConNoN1.setText(DataProcessing.formatIntToString(record.getN1Total()) + " đ");
             soTienConThuaN1.setText("0 đ");
         }
-        tyLeThamGiaN1.setText(record.getN1_qty() + "/" + record.getQty());
+        tyLeThamGiaN1.setText(record.getN1Qty() + "/" + record.getQty());
 
         TextView soTienDaMuaN2 = findViewById(R.id.textViewSTDMN2);
         TextView soTienConNoN2 = findViewById(R.id.textViewSTCNN2);
@@ -93,15 +95,15 @@ public class HistoryDetailActivity extends AppCompatActivity implements HistoryD
         TextView tyLeThamGiaN2 = findViewById(R.id.textViewTLTGN2);
 
         if (record.getBuyer() == 2) {
-            soTienDaMuaN2.setText(record.getTotal() + " đ");
+            soTienDaMuaN2.setText(DataProcessing.formatIntToString(record.getTotal()) + " đ");
             soTienConNoN2.setText("0 đ");
-            soTienConThuaN2.setText(record.getN2_total() + " đ");
+            soTienConThuaN2.setText(DataProcessing.formatIntToString(record.getN2Total()) + " đ");
         } else {
             soTienDaMuaN2.setText("0 đ");
-            soTienConNoN2.setText(record.getN2_total() + " đ");
+            soTienConNoN2.setText(DataProcessing.formatIntToString(record.getN2Total()) + " đ");
             soTienConThuaN2.setText("0 đ");
         }
-        tyLeThamGiaN2.setText(record.getN2_qty() + "/" + record.getQty());
+        tyLeThamGiaN2.setText(record.getN2Qty() + "/" + record.getQty());
 
         TextView soTienDaMuaN3 = findViewById(R.id.textViewSTDMN3);
         TextView soTienConNoN3 = findViewById(R.id.textViewSTCNN3);
@@ -109,15 +111,15 @@ public class HistoryDetailActivity extends AppCompatActivity implements HistoryD
         TextView tyLeThamGiaN3 = findViewById(R.id.textViewTLTGN3);
 
         if (record.getBuyer() == 3) {
-            soTienDaMuaN3.setText(record.getTotal() + " đ");
+            soTienDaMuaN3.setText(DataProcessing.formatIntToString(record.getTotal()) + " đ");
             soTienConNoN3.setText("0 đ");
-            soTienConThuaN3.setText(record.getN3_total() + " đ");
+            soTienConThuaN3.setText(DataProcessing.formatIntToString(record.getN3Total()) + " đ");
         } else {
             soTienDaMuaN3.setText("0 đ");
-            soTienConNoN3.setText(record.getN3_total() + " đ");
+            soTienConNoN3.setText(DataProcessing.formatIntToString(record.getN3Total()) + " đ");
             soTienConThuaN3.setText("0 đ");
         }
-        tyLeThamGiaN3.setText(record.getN3_qty() + "/" + record.getQty());
+        tyLeThamGiaN3.setText(record.getN3Qty() + "/" + record.getQty());
 
         TextView soTienDaMuaN4 = findViewById(R.id.textViewSTDMN4);
         TextView soTienConNoN4 = findViewById(R.id.textViewSTCNN4);
@@ -125,15 +127,15 @@ public class HistoryDetailActivity extends AppCompatActivity implements HistoryD
         TextView tyLeThamGiaN4 = findViewById(R.id.textViewTLTGN4);
 
         if (record.getBuyer() == 4) {
-            soTienDaMuaN4.setText(record.getTotal() + " đ");
+            soTienDaMuaN4.setText(DataProcessing.formatIntToString(record.getTotal()) + " đ");
             soTienConNoN4.setText("0 đ");
-            soTienConThuaN4.setText(record.getN4_total() + " đ");
+            soTienConThuaN4.setText(DataProcessing.formatIntToString(record.getN4Total()) + " đ");
         } else {
             soTienDaMuaN4.setText("0 đ");
-            soTienConNoN4.setText(record.getN4_total() + " đ");
+            soTienConNoN4.setText(DataProcessing.formatIntToString(record.getN4Total()) + " đ");
             soTienConThuaN4.setText("0 đ");
         }
-        tyLeThamGiaN4.setText(record.getN4_qty() + "/" + record.getQty());
+        tyLeThamGiaN4.setText(record.getN4Qty() + "/" + record.getQty());
     }
 
 
@@ -151,9 +153,6 @@ public class HistoryDetailActivity extends AppCompatActivity implements HistoryD
         }
 
         if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(HistoryDetailActivity.this, HistoryActivity.class);
-            intent.putExtras(BundlePackage.setBundleAccount(account));
-            startActivity(intent);
             this.finish();
             return true;
         }
@@ -171,15 +170,30 @@ public class HistoryDetailActivity extends AppCompatActivity implements HistoryD
     @SuppressLint("SetTextI18n")
     private void setOnClickFunctionButton() {
         findViewById(R.id.edit).setOnClickListener(v -> {
-            Intent intent = new Intent(HistoryDetailActivity.this, EditHistoryActivity.class);
-            intent.putExtras(BundlePackage.setBundleAccount(account));
-            intent.putExtras(BundlePackage.setBundleRecord(record));
-            startActivity(intent);
-            this.finish();
+            if (accountId == account.getId()) {
+                Log.e("AccountId", accountId+"");
+                Intent intent = new Intent(HistoryDetailActivity.this,
+                        EditHistoryActivity.class);
+                intent.putExtras(BundlePackage.setBundleRecord(record));
+                startActivity(intent);
+                this.finish();
+            } else {
+                Log.e("AccountId", accountId+"");
+                Toast.makeText(this, "Bạn không thể sửa bản ghi của người khác!!!",
+                        Toast.LENGTH_SHORT).show();
+            }
         });
 
         findViewById(R.id.delete).setOnClickListener(v -> {
-            historyDetailPresenter.deleteRecord(record);
+            if (accountId == account.getId()) {
+                Log.e("AccountId", accountId+"");
+                ((GlobalVariable) this.getApplication()).removeRecord(record);
+                historyDetailPresenter.deleteRecord(record);
+            } else {
+                Log.e("AccountId", accountId+"");
+                Toast.makeText(this, "Bạn không thể sửa bản ghi của người khác!!!",
+                        Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -187,20 +201,20 @@ public class HistoryDetailActivity extends AppCompatActivity implements HistoryD
     /****************************Interface Functions***************************/
     @Override
     public void connectFailed() {
-        Toast.makeText(getApplicationContext(), "Connection failed!!!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Connection failed!!!",
+                Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void deleteSuccess() {
-        Toast.makeText(getApplicationContext(), "Delete successfully!!!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HistoryDetailActivity.this, HistoryActivity.class);
-        intent.putExtras(BundlePackage.setBundleAccount(account));
-        startActivity(intent);
+        Toast.makeText(getApplicationContext(), "Delete successfully!!!",
+                Toast.LENGTH_SHORT).show();
         this.finish();
     }
 
     @Override
     public void deleteError() {
-        Toast.makeText(getApplicationContext(), "Delete unsuccessfully!!!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Delete unsuccessfully!!!",
+                Toast.LENGTH_SHORT).show();
     }
 }

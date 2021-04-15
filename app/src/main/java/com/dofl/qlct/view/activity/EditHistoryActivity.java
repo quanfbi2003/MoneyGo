@@ -1,6 +1,9 @@
 package com.dofl.qlct.view.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -22,12 +25,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dofl.qlct.R;
 import com.dofl.qlct.model.Account;
+import com.dofl.qlct.model.GlobalVariable;
 import com.dofl.qlct.model.Record;
 import com.dofl.qlct.presenter.EditHistoryInterface;
 import com.dofl.qlct.presenter.EditHistoryPresenter;
 import com.dofl.qlct.presenter.utils.BundlePackage;
+import com.dofl.qlct.presenter.utils.DataProcessing;
 import com.dofl.qlct.presenter.utils.HideKeyboard;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 
 public class EditHistoryActivity extends AppCompatActivity implements EditHistoryInterface {
@@ -35,6 +43,9 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
     private Account account;
     private Record record;
     private EditHistoryPresenter editHistoryPresenter;
+    private EditText dateText;
+    private EditText timeText;
+    private Calendar myCalendar;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -47,12 +58,14 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
         setImageBehavior();
         setImageButtonListener();
         setOnClickFunctionButton();
+        onCreateDateAndTime();
+        setOnPressFunction();
     }
 
 
     /****************************Initial Value***************************/
     private void initValue() {
-        account = BundlePackage.getBundleAccount(getIntent());
+        account = DataProcessing.getAccount(((GlobalVariable) this.getApplication()).getAccount());
         record = BundlePackage.getBundleRecord(getIntent());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -71,7 +84,8 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
 
         editHistoryPresenter = new EditHistoryPresenter(this);
 
-        new Thread(() -> HideKeyboard.setupUI(findViewById(R.id.edit_history_view), EditHistoryActivity.this)).start();
+        new Thread(() -> HideKeyboard.setupUI(findViewById(R.id.edit_history_view),
+                EditHistoryActivity.this)).start();
     }
 
     @SuppressLint("SetTextI18n")
@@ -89,43 +103,89 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
         TextView textViewValueN3 = findViewById(R.id.textViewValueN3);
         TextView textViewValueN4 = findViewById(R.id.textViewValueN4);
 
-        total.setText(Integer.toString(record.getTotal()));
-        time.setText(record.getTime_create());
-        dateText.setText(record.getDate_create());
+        total.setText(DataProcessing.formatIntToString(record.getTotal()));
+        time.setText(record.getTimeCreate());
+        dateText.setText(record.getDateCreate());
         description.setText(record.getDescription());
 
-        if (record.getN1_qty() != 0) {
+        if (record.getN1Qty() != 0) {
             checkBoxN1.setChecked(false);
             setImageClickN1(findViewById(R.id.edit_history_view));
-            textViewValueN1.setText(Integer.toString(record.getN1_qty()));
+            textViewValueN1.setText(Integer.toString(record.getN1Qty()));
         } else {
             checkBoxN1.setChecked(true);
             setImageClickN1(findViewById(R.id.edit_history_view));
         }
-        if (record.getN2_qty() != 0) {
+        if (record.getN2Qty() != 0) {
             checkBoxN2.setChecked(false);
             setImageClickN2(findViewById(R.id.edit_history_view));
-            textViewValueN2.setText(Integer.toString(record.getN2_qty()));
+            textViewValueN2.setText(Integer.toString(record.getN2Qty()));
         } else {
             checkBoxN2.setChecked(true);
             setImageClickN2(findViewById(R.id.edit_history_view));
         }
-        if (record.getN3_qty() != 0) {
+        if (record.getN3Qty() != 0) {
             checkBoxN3.setChecked(false);
             setImageClickN3(findViewById(R.id.edit_history_view));
-            textViewValueN3.setText(Integer.toString(record.getN3_qty()));
+            textViewValueN3.setText(Integer.toString(record.getN3Qty()));
         } else {
             checkBoxN3.setChecked(true);
             setImageClickN3(findViewById(R.id.edit_history_view));
         }
-        if (record.getN4_qty() != 0) {
+        if (record.getN4Qty() != 0) {
             checkBoxN4.setChecked(false);
             setImageClickN4(findViewById(R.id.edit_history_view));
-            textViewValueN4.setText(Integer.toString(record.getN4_qty()));
+            textViewValueN4.setText(Integer.toString(record.getN4Qty()));
         } else {
             checkBoxN4.setChecked(true);
             setImageClickN4(findViewById(R.id.edit_history_view));
         }
+    }
+
+
+    private void onCreateDateAndTime() {
+        myCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener d = (view, year, monthOfYear, dayOfMonth) -> {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        };
+        TimePickerDialog.OnTimeSetListener t = (view, hourOfDay, minute) -> {
+            myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            myCalendar.set(Calendar.MINUTE, minute);
+            updateLabel();
+        };
+        dateText = findViewById(R.id.date);
+        dateText.setOnClickListener(v -> {
+            DatePickerDialog datePickerDialog =
+                    new DatePickerDialog(EditHistoryActivity.this, d,
+                    myCalendar.get(Calendar.YEAR),
+                    myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+            datePickerDialog.show();
+        });
+        dateText.setKeyListener(null);
+
+        timeText = findViewById(R.id.time);
+        timeText.setOnClickListener(v -> {
+            TimePickerDialog timePickerDialog =
+                    new TimePickerDialog(EditHistoryActivity.this, t,
+                    myCalendar.get(Calendar.HOUR_OF_DAY),
+                    myCalendar.get(Calendar.MINUTE), true);
+            timePickerDialog.show();
+        });
+        timeText.setKeyListener(null);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void updateLabel() {
+        dateText.setText(DataProcessing.getEditDate(myCalendar.getTime()));
+
+        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm",
+                Locale.getDefault());
+        timeText.setText(simpleTimeFormat.format(myCalendar.getTime()));
     }
 
 
@@ -142,8 +202,8 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
             drawerLayout.openDrawer(GravityCompat.END);
         }
         if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(EditHistoryActivity.this, HistoryActivity.class);
-            intent.putExtras(BundlePackage.setBundleAccount(account));
+            Intent intent = new Intent(EditHistoryActivity.this,
+                    HistoryActivity.class);
             startActivity(intent);
             this.finish();
             return true;
@@ -159,7 +219,8 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
 
 
     /****************************Image Value Button***************************/
-    private void setImageStatus(boolean status, ImageView imageViewUp, ImageView imageViewDown, TextView textViewValue) {
+    private void setImageStatus(boolean status, ImageView imageViewUp, ImageView imageViewDown,
+                                TextView textViewValue) {
         if (status) {
             imageViewUp.setBackgroundColor(Color.WHITE);
             imageViewDown.setBackgroundColor(Color.WHITE);
@@ -178,9 +239,12 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
             CheckBox checkBox = findViewById(R.id.checkBoxN1);
             if (checkBox.isChecked()) {
                 TextView textView = findViewById(R.id.textViewValueN1);
-                textView.setText(Integer.toString(Integer.parseInt(String.valueOf(textView.getText())) + 1));
+                textView.setText(Integer.toString(Integer.
+                        parseInt(String.valueOf(textView.getText())) + 1));
             } else {
-                Toast.makeText(getApplicationContext(), "Choose participants to use this function!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        "Choose participants to use this function!!!",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         findViewById(R.id.imageViewDownN1).setOnClickListener(v -> {
@@ -189,12 +253,16 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
                 TextView textView = findViewById(R.id.textViewValueN1);
                 int temp = Integer.parseInt(String.valueOf(textView.getText()));
                 if (temp == 0) {
-                    Toast.makeText(getApplicationContext(), "Quantity cannot be less than 0!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),
+                            "Quantity cannot be less than 0!!!", Toast.LENGTH_SHORT).show();
                 } else {
-                    textView.setText(Integer.toString(Integer.parseInt(String.valueOf(textView.getText())) - 1));
+                    textView.setText(Integer.toString(Integer.
+                            parseInt(String.valueOf(textView.getText())) - 1));
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Choose participants to use this function!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        "Choose participants to use this function!",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -202,9 +270,12 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
             CheckBox checkBox = findViewById(R.id.checkBoxN2);
             if (checkBox.isChecked()) {
                 TextView textView = findViewById(R.id.textViewValueN2);
-                textView.setText(Integer.toString(Integer.parseInt(String.valueOf(textView.getText())) + 1));
+                textView.setText(Integer.toString(Integer.
+                        parseInt(String.valueOf(textView.getText())) + 1));
             } else {
-                Toast.makeText(getApplicationContext(), "Choose participants to use this function!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        "Choose participants to use this function!",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         findViewById(R.id.imageViewDownN2).setOnClickListener(v -> {
@@ -213,12 +284,16 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
                 TextView textView = findViewById(R.id.textViewValueN2);
                 int temp = Integer.parseInt(String.valueOf(textView.getText()));
                 if (temp == 0) {
-                    Toast.makeText(getApplicationContext(), "Quantity cannot be less than 0!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),
+                            "Quantity cannot be less than 0!!!", Toast.LENGTH_SHORT).show();
                 } else {
-                    textView.setText(Integer.toString(Integer.parseInt(String.valueOf(textView.getText())) - 1));
+                    textView.setText(Integer.toString(Integer.
+                            parseInt(String.valueOf(textView.getText())) - 1));
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Choose participants to use this function!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        "Choose participants to use this function!",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -226,9 +301,12 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
             CheckBox checkBox = findViewById(R.id.checkBoxN3);
             if (checkBox.isChecked()) {
                 TextView textView = findViewById(R.id.textViewValueN3);
-                textView.setText(Integer.toString(Integer.parseInt(String.valueOf(textView.getText())) + 1));
+                textView.setText(Integer.toString(Integer.
+                        parseInt(String.valueOf(textView.getText())) + 1));
             } else {
-                Toast.makeText(getApplicationContext(), "Choose participants to use this function!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        "Choose participants to use this function!",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         findViewById(R.id.imageViewDownN3).setOnClickListener(v -> {
@@ -237,12 +315,16 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
                 TextView textView = findViewById(R.id.textViewValueN3);
                 int temp = Integer.parseInt(String.valueOf(textView.getText()));
                 if (temp == 0) {
-                    Toast.makeText(getApplicationContext(), "Quantity cannot be less than 0!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),
+                            "Quantity cannot be less than 0!!!", Toast.LENGTH_SHORT).show();
                 } else {
-                    textView.setText(Integer.toString(Integer.parseInt(String.valueOf(textView.getText())) - 1));
+                    textView.setText(Integer.toString(Integer.
+                            parseInt(String.valueOf(textView.getText())) - 1));
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Choose participants to use this function!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        "Choose participants to use this function!",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -250,9 +332,12 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
             CheckBox checkBox = findViewById(R.id.checkBoxN4);
             if (checkBox.isChecked()) {
                 TextView textView = findViewById(R.id.textViewValueN4);
-                textView.setText(Integer.toString(Integer.parseInt(String.valueOf(textView.getText())) + 1));
+                textView.setText(Integer.toString(Integer.
+                        parseInt(String.valueOf(textView.getText())) + 1));
             } else {
-                Toast.makeText(getApplicationContext(), "Choose participants to use this function!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        "Choose participants to use this function!",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         findViewById(R.id.imageViewDownN4).setOnClickListener(v -> {
@@ -261,12 +346,16 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
                 TextView textView = findViewById(R.id.textViewValueN4);
                 int temp = Integer.parseInt(String.valueOf(textView.getText()));
                 if (temp == 0) {
-                    Toast.makeText(getApplicationContext(), "Quantity cannot be less than 0!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),
+                            "Quantity cannot be less than 0!!!", Toast.LENGTH_SHORT).show();
                 } else {
-                    textView.setText(Integer.toString(Integer.parseInt(String.valueOf(textView.getText())) - 1));
+                    textView.setText(Integer.toString(Integer.
+                            parseInt(String.valueOf(textView.getText())) - 1));
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Choose participants to use this function!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        "Choose participants to use this function!",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -307,7 +396,8 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
 
 
     /****************************Image Info Button***************************/
-    private void setImageClick(CheckBox checkBox, ImageView imageViewUp, ImageView imageViewDown, TextView textViewValue) {
+    private void setImageClick(CheckBox checkBox, ImageView imageViewUp, ImageView imageViewDown,
+                               TextView textViewValue) {
         if (checkBox.isChecked()) {
             checkBox.setChecked(false);
             setImageStatus(false, imageViewUp, imageViewDown, textViewValue);
@@ -380,25 +470,16 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
         imageBehavior(findViewById(R.id.imageViewInfN2));
         imageBehavior(findViewById(R.id.imageViewInfN3));
         imageBehavior(findViewById(R.id.imageViewInfN4));
-
-//        imageBehavior(findViewById(R.id.imageViewUpN1));
-//        imageBehavior(findViewById(R.id.imageViewUpN2));
-//        imageBehavior(findViewById(R.id.imageViewUpN3));
-//        imageBehavior(findViewById(R.id.imageViewUpN4));
-//
-//        imageBehavior(findViewById(R.id.imageViewDownN1));
-//        imageBehavior(findViewById(R.id.imageViewDownN2));
-//        imageBehavior(findViewById(R.id.imageViewDownN3));
-//        imageBehavior(findViewById(R.id.imageViewDownN4));
     }
 
 
     /****************************Interface Functions***************************/
     @Override
-    public void editSuccess() {
-        Toast.makeText(getApplicationContext(), "Edit successfully!!!", Toast.LENGTH_SHORT).show();
+    public void editSuccess(Record record) {
+        ((GlobalVariable) this.getApplication()).editRecord(record);
+        Toast.makeText(getApplicationContext(), "Edit successfully!!!",
+                Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(EditHistoryActivity.this, HistoryActivity.class);
-        intent.putExtras(BundlePackage.setBundleAccount(account));
         startActivity(intent);
         this.finish();
     }
@@ -410,7 +491,8 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
 
     @Override
     public void connectFailed() {
-        Toast.makeText(getApplicationContext(), "Connection failed!!!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Connection failed!!!",
+                Toast.LENGTH_SHORT).show();
     }
 
 
@@ -430,35 +512,62 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
             TextView textViewValueN3 = findViewById(R.id.textViewValueN3);
             CheckBox checkBoxN4 = findViewById(R.id.checkBoxN4);
             TextView textViewValueN4 = findViewById(R.id.textViewValueN4);
-            record.setTotal(Integer.parseInt(total.getText().toString()));
+            record.setTotal(DataProcessing.formatStringToInt(total.getText().toString()));
 
             if (checkBoxN1.isChecked()) {
                 int temp = Integer.parseInt(textViewValueN1.getText().toString());
-                record.setN1_qty(temp);
+                record.setN1Qty(temp);
             } else {
-                record.setN1_qty(0);
+                record.setN1Qty(0);
             }
             if (checkBoxN2.isChecked()) {
                 int temp = Integer.parseInt(textViewValueN2.getText().toString());
-                record.setN2_qty(temp);
+                record.setN2Qty(temp);
             } else {
-                record.setN2_qty(0);
+                record.setN2Qty(0);
             }
             if (checkBoxN3.isChecked()) {
                 int temp = Integer.parseInt(textViewValueN3.getText().toString());
-                record.setN3_qty(temp);
+                record.setN3Qty(temp);
             } else {
-                record.setN3_qty(0);
+                record.setN3Qty(0);
             }
             if (checkBoxN4.isChecked()) {
                 int temp = Integer.parseInt(textViewValueN4.getText().toString());
-                record.setN4_qty(temp);
+                record.setN4Qty(temp);
             } else {
-                record.setN4_qty(0);
+                record.setN4Qty(0);
             }
             record.setDescription(description.getText().toString());
 
-            editHistoryPresenter.editRecord(record);
+            if (DataProcessing.compareValidateDate(account.getStartDate(),
+                    record.getDateCreate())) {
+                editHistoryPresenter.editRecord(record);
+
+            } else {
+                new AlertDialog.Builder(this)
+                        .setTitle("Ngày nhập đã quá hạn!!!")
+                        .setMessage("Ngày bạn nhập đã quá hạn. Vui lòng chọn từ ngày " +
+                                account.getStartDate() + " đến Hôm nay để tiếp tục!!!")
+                        .setPositiveButton(android.R.string.ok, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+    }
+
+
+    /****************************OnPress Function***************************/
+    private void setOnPressFunction() {
+        EditText total = findViewById(R.id.total);
+        total.setOnFocusChangeListener((v, hasFocus) -> {
+            if (total.getText().length() > 13) {
+                Toast.makeText(EditHistoryActivity.this,
+                        "Value cannot be above 10,000,000,000!!!", Toast.LENGTH_SHORT).show();
+            } else if (!total.getText().toString().equalsIgnoreCase("")) {
+                total.setText(DataProcessing.formatIntToString(DataProcessing.
+                        formatStringToInt(total.getText().toString())));
+            }
         });
     }
 }

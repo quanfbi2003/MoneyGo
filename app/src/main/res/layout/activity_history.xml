@@ -24,6 +24,52 @@
                 app:title="@string/app_name"
                 app:titleTextColor="@color/white" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/quan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Quân"/>
+
+                <Button
+                    android:id="@+id/doan"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Doãn"/>
+
+                <Button
+                    android:id="@+id/son"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sơn"/>
+
+                <Button
+                    android:id="@+id/lam"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lâm"/>
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="?android:attr/listDivider" />
+
             <ListView
                 android:id="@+id/list"
                 android:layout_width="match_parent"

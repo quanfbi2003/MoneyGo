@@ -19,7 +19,7 @@ public class HistoryDetailPresenter {
         try {
             Connection connection = JDBC.getConnection();
             if (connection != null) {
-                String query = "DELETE FROM record WHERE id = \'" + record.getId() + "\'";
+                String query = "DELETE FROM Record WHERE Id = \'" + record.getId() + "\'";
                 Log.e("Log", query);
                 Statement stmt = connection.createStatement();
                 int result = stmt.executeUpdate(query);//thực thi lệnh, trả về số dòng thực hiện dc

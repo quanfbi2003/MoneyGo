@@ -16,19 +16,30 @@ public class AddPresenter {
     }
 
     public void addRecord(Record record) {
-        record.setQty(record.getN1_qty() + record.getN2_qty() + record.getN3_qty() + record.getN4_qty());
+        record.setQty(record.getN1Qty() + record.getN2Qty() + record.getN3Qty() + record.getN4Qty());
         if (record.getQty() != 0 && !record.getDescription().trim().isEmpty() && record.getTotal() != 0) {
             try {
                 Connection connection = JDBC.getConnection();
                 if (connection != null) {
-                    String query = "INSERT INTO record (total, description, time_create, date_create, buyer, n1_qty, n2_qty, n3_qty, n4_qty, package_number) VALUES (\'" + record.getTotal() + "\', N\'" + record.getDescription() + "\', N\'" + record.getTime_create() + "\', N\'" + record.getDate_create() + "\', \'" + record.getBuyer() + "\', \'" + record.getN1_qty() + "\', \'" + record.getN2_qty() + "\', \'" + record.getN3_qty() + "\', \'" + record.getN4_qty() + "\', \'" + record.getPackage_number() + "\')";
+                    String query = "INSERT INTO Record (Id, Total, Description, TimeCreate, DateCreate, " +
+                            "Buyer, N1Qty, N2Qty, N3Qty, N4Qty, PackageNumber) VALUES (N\'" +
+                            record.getId() + "\', \'" +
+                            record.getTotal() + "\', N\'" + record.getDescription() + "\', N\'" +
+                            record.getTimeCreate() + "\', N\'" + record.getDateCreate() + "\', \'" +
+                            record.getBuyer() + "\', \'" + record.getN1Qty() + "\', \'" +
+                            record.getN2Qty() + "\', \'" + record.getN3Qty() + "\', \'" +
+                            record.getN4Qty() + "\', \'" + record.getPackageNumber() + "\')";
 
                     Log.e("Log", query);
                     Statement stmt = connection.createStatement();
                     int result = stmt.executeUpdate(query);//thực thi lệnh, trả về số dòng thực hiện dc
 
                     if (result == 1) {
-                        addInterface.addSuccess();
+                        addInterface.addSuccess(new Record(record.getId(), record.getTotal(),
+                                record.getDescription(),
+                                record.getTimeCreate(), record.getDateCreate(),
+                                record.getBuyer(), record.getN1Qty(), record.getN2Qty(),
+                                record.getN3Qty(), record.getN4Qty(), record.getPackageNumber()));
                         Log.e("Log", "Add successfully!!!");
                         connection.close();
                     } else {

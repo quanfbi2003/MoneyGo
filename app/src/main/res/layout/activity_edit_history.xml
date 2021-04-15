@@ -163,7 +163,7 @@
                             android:autofillHints=""
                             android:backgroundTint="#4DD0E1"
                             android:hint="@string/ghi_chu"
-                            android:inputType="text"
+                            android:inputType="text|textCapSentences"
                             android:paddingStart="10dp"
                             android:paddingTop="5dp"
                             android:paddingEnd="10dp"

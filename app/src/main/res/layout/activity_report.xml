@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.activity.ReportActivity"
+    tools:ignore="HardcodedText">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:title="@string/app_name"
+                app:titleTextColor="@color/white" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/lastMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:text="Tháng trước"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/thisMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center"
+                        android:text="Tháng này"
+                        android:textSize="12sp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/nav_info" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/name_n1"
+                    android:textColor="@color/purple_500"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:gravity="end|center"
+                        android:text="Từ:  "
+                        android:textColor="#9C27B0"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/startDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="start|center"
+                        android:text="Chủ nhật - 12/03/2021"
+                        android:textColor="#1A237E"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:gravity="end|center"
+                        android:text="Đến:  "
+                        android:textColor="#9C27B0"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/endDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="start|center"
+                        android:text="Hôm nay - 12/12/1212"
+                        android:textColor="#1A237E"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider5"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="?android:attr/listDivider" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="THANH TOÁN"
+                            android:textColor="#1E2069"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/report_menu"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:id="@+id/soTienThangTruocTV"
+                                android:layout_width="185dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="Tiền thừa tháng X: "
+                                android:textColor="#43A047"
+                                android:textSize="21sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/soTienThangTruoc"
+                                android:layout_width="125dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="5,500,000 đ"
+                                android:textColor="#43A047"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="5dp"
+                            android:background="?android:attr/listDivider" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="TỔNG QUAN"
+                            android:textColor="#33691E"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/report_menu"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:id="@+id/tongTienTV"
+                                android:layout_width="165dp"
+                                android:layout_height="50dp"
+                                android:gravity="start|center"
+                                android:text="Tổng tiền thừa: "
+                                android:textColor="#43A047"
+                                android:textSize="23sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tongTien"
+                                android:layout_width="140dp"
+                                android:layout_height="50dp"
+                                android:gravity="start|center"
+                                android:text="5,500,000 đ"
+                                android:textColor="#43A047"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/report_menu"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:id="@+id/sotienThangNayTV"
+                                android:layout_width="185dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="Tiền thừa tháng này: "
+                                android:textColor="#43A047"
+                                android:textSize="19sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/sotienThangNay"
+                                android:layout_width="125dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="5,500,000 đ"
+                                android:textColor="#43A047"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="5dp"
+                            android:background="?android:attr/listDivider" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="CHI TIÊU"
+                            android:textColor="#BF360C"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|center"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/report_menu"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="155dp"
+                                android:layout_height="50dp"
+                                android:gravity="start|center"
+                                android:text="Tổng số tiền: "
+                                android:textColor="#039BE5"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tongSoTien"
+                                android:layout_width="150dp"
+                                android:layout_height="50dp"
+                                android:gravity="start|center"
+                                android:text="5,500,000 đ"
+                                android:textColor="#00897B"
+                                android:textSize="27sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/report_menu"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="180dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="Tổng số bản ghi: "
+                                android:textColor="#3949AB"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tongSoBanGhi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="10"
+                                android:textColor="#3949AB"
+                                android:textSize="23sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/report_menu"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="180dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="Số tiền đã chi: "
+                                android:textColor="#E53935"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tongSoTienDaChi"
+                                android:layout_width="130dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="5,500,000 đ"
+                                android:textColor="#E53935"
+                                android:textSize="23sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/report_menu"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="180dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="Số tiền phải trả: "
+                                android:textColor="#EC407A"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tongSoTienPhaiTra"
+                                android:layout_width="130dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="5,500,000 đ"
+                                android:textColor="#EC407A"
+                                android:textSize="23sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="5dp"
+                            android:background="?android:attr/listDivider" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="TIỀN PHÒNG"
+                            android:textColor="#0D47A1"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/report_menu"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="190dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="Tiền phòng, phụ phí: "
+                                android:textColor="#4A4646"
+                                android:textSize="19sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tienPhong"
+                                android:layout_width="120dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="5,500,000 đ"
+                                android:textColor="#4A4646"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/report_menu"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="190dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="Tiền điện tháng này: "
+                                android:textColor="#F57F17"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tienDien"
+                                android:layout_width="120dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="5,500,000 đ"
+                                android:textColor="#F57F17"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/report_menu"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="190dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="Tiền nước tháng này: "
+                                android:textColor="#0000FF"
+                                android:textSize="19sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tienNuoc"
+                                android:layout_width="120dp"
+                                android:layout_height="45dp"
+                                android:gravity="start|center"
+                                android:text="5,500,000 đ"
+                                android:textColor="#0000FF"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="200dp"
+                    android:contentDescription="@string/todo"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/nav_info" />
+
+                <TextView
+                    android:id="@+id/displayName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="30dp"
+                    android:text="@string/name"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/signout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/sign_out"
+                    android:textColor="@color/purple_700"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.navigation.NavigationView>
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>

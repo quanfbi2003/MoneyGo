@@ -3,12 +3,18 @@
     package="com.dofl.qlct">
 
     <application
+        android:name=".model.GlobalVariable"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.QLCT">
+        <activity android:name=".view.activity.PaymentActivity" />
+        <activity android:name=".view.activity.SettlementActivity" />
+        <activity android:name=".view.activity.ManageActivity" />
+        <activity android:name=".view.activity.FeeDetailActivity" />
+        <activity android:name=".view.activity.ReportActivity" />
         <activity android:name=".view.activity.HistoryDetailActivity" />
         <activity android:name=".view.activity.HistoryActivity" />
         <activity android:name=".view.activity.EditHistoryActivity" />

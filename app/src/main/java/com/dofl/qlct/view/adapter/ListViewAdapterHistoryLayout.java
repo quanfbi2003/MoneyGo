@@ -11,21 +11,27 @@ import android.widget.TextView;
 
 import com.dofl.qlct.R;
 import com.dofl.qlct.model.Record;
+import com.dofl.qlct.presenter.utils.DataProcessing;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ListViewAdapterHistoryLayout extends BaseAdapter {
     private final Context context;
-    private final ArrayList<Record> recordArrayList;
+    private List<Record> listRecord;
 
-    public ListViewAdapterHistoryLayout(Context context, ArrayList<Record> recordArrayList) {
+    public ListViewAdapterHistoryLayout(Context context, List<Record> listRecord) {
         this.context = context;
-        this.recordArrayList = recordArrayList;
+        this.listRecord = listRecord;
+    }
+
+    public void update(List<Record> listRecord) {
+        this.listRecord = listRecord;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return recordArrayList.size();
+        return listRecord.size();
     }
 
     @Override
@@ -49,11 +55,11 @@ public class ListViewAdapterHistoryLayout extends BaseAdapter {
         TextView money = convertView.findViewById(R.id.money);
         ImageView icon = convertView.findViewById(R.id.icon);
 
-        description.setText(recordArrayList.get(position).getDescription());
-        date.setText(recordArrayList.get(position).getDate_create());
-        time.setText(recordArrayList.get(position).getTime_create());
-        money.setText(recordArrayList.get(position).getTotal() + " đ");
-        icon.setImageResource(recordArrayList.get(position).getIcon());
+        description.setText(listRecord.get(position).getDescription());
+        date.setText(listRecord.get(position).getDateCreate());
+        time.setText(listRecord.get(position).getTimeCreate());
+        money.setText(DataProcessing.formatIntToString(listRecord.get(position).getTotal()) + " đ");
+        icon.setImageResource(listRecord.get(position).getIcon());
         return convertView;
     }
 }
