@@ -22,11 +22,12 @@ public class AddPresenter {
                 + " - " + record.getTimeCreate() + " - " + key)
                 .setValue(record).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                addInterface.addSuccess();
+                addInterface.addSuccess(record);
             } else {
                 addInterface.addError(task.getException().toString());
             }
         });
-
     }
+
+    public void update(MoneyPackage presentMoneyPackage, Record record) {
 }

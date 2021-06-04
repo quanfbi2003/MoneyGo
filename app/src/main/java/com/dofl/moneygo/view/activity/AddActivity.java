@@ -431,7 +431,7 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
 
     /****************************Interface Functions***************************/
     @Override
-    public void addSuccess() {
+    public void addSuccess(Record record) {
         reset();
         Toast.makeText(getApplicationContext(), "Thêm bản ghi thành công!!!",
                 Toast.LENGTH_SHORT).show();
