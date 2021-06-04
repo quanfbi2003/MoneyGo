@@ -29,5 +29,5 @@ public class AddPresenter {
         });
     }
 
-    public void update(MoneyPackage presentMoneyPackage, Record record) {
+//    public void update(MoneyPackage presentMoneyPackage, Record record) {
 }
