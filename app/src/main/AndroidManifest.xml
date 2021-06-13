@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
     <application
         android:name=".model.GlobalVariable"
@@ -14,6 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoneyGo"
         tools:ignore="AllowBackup">
+        <activity android:name=".view.activity.PaymentActivity" />
+        <activity android:name=".view.activity.SettlementActivity" />
+        <activity android:name=".view.activity.ManageActivity" />
+        <activity android:name=".view.activity.FeeDetailActivity" />
+        <activity android:name=".view.activity.EditHistoryActivity" />
+        <activity android:name=".view.activity.HistoryDetailActivity" />
+        <activity android:name=".view.activity.HistoryActivity" />
         <activity android:name=".view.activity.AddActivity" />
         <activity android:name=".view.activity.ReportActivity" />
         <activity android:name=".view.activity.LoginActivity">
@@ -29,6 +38,10 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <service
+            android:name=".presenter.utils.ForegroundServices"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

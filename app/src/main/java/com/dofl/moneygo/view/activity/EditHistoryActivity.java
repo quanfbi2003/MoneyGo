@@ -1,17 +1,12 @@
 package com.dofl.moneygo.view.activity;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
@@ -27,30 +22,32 @@ import androidx.appcompat.widget.Toolbar;
 import com.dofl.moneygo.R;
 import com.dofl.moneygo.model.GlobalVariable;
 import com.dofl.moneygo.model.Record;
-import com.dofl.moneygo.presenter.AddInterface;
-import com.dofl.moneygo.presenter.AddPresenter;
+import com.dofl.moneygo.presenter.EditHistoryInterface;
+import com.dofl.moneygo.presenter.EditHistoryPresenter;
 import com.dofl.moneygo.presenter.utils.DataProcessing;
 import com.dofl.moneygo.presenter.utils.HideKeyboard;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
-public class AddActivity extends AppCompatActivity implements AddInterface {
+public class EditHistoryActivity extends AppCompatActivity implements EditHistoryInterface {
     private EditText dateText;
     private EditText timeText;
     private Calendar myCalendar;
-    private AddPresenter addPresenter;
+    private String key;
+    private Record record;
+    private EditHistoryPresenter editHistoryPresenter;
 
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_edit_history);
 
         initValue();
+        importValue();
         onCreateDateAndTime();
         setImageBehavior();
         setImageButtonListener();
@@ -61,25 +58,83 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
 
     /****************************Initial Value***************************/
     private void initValue() {
+        key = getIntent().getStringExtra("key");
+        record = (Record) getIntent().getSerializableExtra("record");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         checkNetworkStatus();
-        new Thread(() -> HideKeyboard.setupUI(findViewById(R.id.add_view),
-                AddActivity.this)).start();
+        new Thread(() -> HideKeyboard.setupUI(findViewById(R.id.edit_history_view),
+                EditHistoryActivity.this)).start();
 
         EditText total = findViewById(R.id.total);
         total.setSelection(0);
+        dateText = findViewById(R.id.date);
+        timeText = findViewById(R.id.time);
 
-        addPresenter = new AddPresenter(this);
+        editHistoryPresenter = new EditHistoryPresenter(this);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void importValue() {
+        EditText total = findViewById(R.id.total);
+        EditText time = findViewById(R.id.time);
+        EditText dateText = findViewById(R.id.date);
+        EditText description = findViewById(R.id.description);
+        CheckBox checkBoxN1 = findViewById(R.id.checkBoxN1);
+        CheckBox checkBoxN2 = findViewById(R.id.checkBoxN2);
+        CheckBox checkBoxN3 = findViewById(R.id.checkBoxN3);
+        CheckBox checkBoxN4 = findViewById(R.id.checkBoxN4);
+        TextView textViewValueN1 = findViewById(R.id.textViewValueN1);
+        TextView textViewValueN2 = findViewById(R.id.textViewValueN2);
+        TextView textViewValueN3 = findViewById(R.id.textViewValueN3);
+        TextView textViewValueN4 = findViewById(R.id.textViewValueN4);
+
+        total.setText(DataProcessing.formatIntToString(record.getTotal()));
+        description.setText(record.getDescription());
+        time.setEnabled(false);
+        dateText.setEnabled(false);
+
+        if (record.getN1Qty() != 0) {
+            checkBoxN1.setChecked(false);
+            setImageClickN1(findViewById(R.id.edit_history_view));
+            textViewValueN1.setText(Integer.toString(record.getN1Qty()));
+        } else {
+            checkBoxN1.setChecked(true);
+            setImageClickN1(findViewById(R.id.edit_history_view));
+        }
+        if (record.getN2Qty() != 0) {
+            checkBoxN2.setChecked(false);
+            setImageClickN2(findViewById(R.id.edit_history_view));
+            textViewValueN2.setText(Integer.toString(record.getN2Qty()));
+        } else {
+            checkBoxN2.setChecked(true);
+            setImageClickN2(findViewById(R.id.edit_history_view));
+        }
+        if (record.getN3Qty() != 0) {
+            checkBoxN3.setChecked(false);
+            setImageClickN3(findViewById(R.id.edit_history_view));
+            textViewValueN3.setText(Integer.toString(record.getN3Qty()));
+        } else {
+            checkBoxN3.setChecked(true);
+            setImageClickN3(findViewById(R.id.edit_history_view));
+        }
+        if (record.getN4Qty() != 0) {
+            checkBoxN4.setChecked(false);
+            setImageClickN4(findViewById(R.id.edit_history_view));
+            textViewValueN4.setText(Integer.toString(record.getN4Qty()));
+        } else {
+            checkBoxN4.setChecked(true);
+            setImageClickN4(findViewById(R.id.edit_history_view));
+        }
     }
 
 
     /****************************Network Functions***************************/
     private boolean checkNetworkStatus() {
         if (!getNetworkStatus()) {
-            new AlertDialog.Builder(AddActivity.this)
+            new AlertDialog.Builder(EditHistoryActivity.this)
                     .setTitle("Thông báo!!!")
                     .setMessage("Không có kết nối mạng, chọn OK để đóng ứng dụng!!!")
                     .setIcon(android.R.drawable.ic_dialog_alert)
@@ -100,21 +155,6 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
 
     /****************************Override Toolbar Functions***************************/
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.nav_add_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.history) {
-            startActivity(new Intent(AddActivity.this, HistoryActivity.class));
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
@@ -124,39 +164,46 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
     /****************************OnCreate Date And Time***************************/
     private void onCreateDateAndTime() {
         myCalendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener d = (view, year, monthOfYear, dayOfMonth) -> {
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateLabel();
-        };
-        TimePickerDialog.OnTimeSetListener t = (view, hourOfDay, minute) -> {
-            myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            myCalendar.set(Calendar.MINUTE, minute);
-            updateLabel();
-        };
-        dateText = findViewById(R.id.date);
-        dateText.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(AddActivity.this, d,
-                    myCalendar.get(Calendar.YEAR),
-                    myCalendar.get(Calendar.MONTH),
-                    myCalendar.get(Calendar.DAY_OF_MONTH));
-            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
-            datePickerDialog.getDatePicker().setMinDate(Objects.requireNonNull(DataProcessing
-                    .getDate(((GlobalVariable) this.getApplication())
-                            .getPresentSummaryPackage().getStartDate())).getTime() - 1000);
-            datePickerDialog.show();
-        });
-        dateText.setKeyListener(null);
+        myCalendar.setTime(Objects.requireNonNull(DataProcessing.getDate(record.getDateCreate())));
+        myCalendar.set(Calendar.HOUR_OF_DAY,
+                Integer.parseInt(DataProcessing.getTime(record.getTimeCreate())[0]));
+        myCalendar.set(Calendar.MINUTE,
+                Integer.parseInt(DataProcessing.getTime(record.getTimeCreate())[1]));
+//        DatePickerDialog.OnDateSetListener d = (view, year, monthOfYear, dayOfMonth) -> {
+//            myCalendar.set(Calendar.YEAR, year);
+//            myCalendar.set(Calendar.MONTH, monthOfYear);
+//            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//            updateLabel();
+//        };
+//        TimePickerDialog.OnTimeSetListener t = (view, hourOfDay, minute) -> {
+//            myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//            myCalendar.set(Calendar.MINUTE, minute);
+//            updateLabel();
+//        };
 
-        timeText = findViewById(R.id.time);
-        timeText.setOnClickListener(v -> {
-            TimePickerDialog timePickerDialog = new TimePickerDialog(AddActivity.this, t,
-                    myCalendar.get(Calendar.HOUR_OF_DAY),
-                    myCalendar.get(Calendar.MINUTE), true);
-            timePickerDialog.show();
-        });
-        timeText.setKeyListener(null);
+//        dateText.setOnClickListener(v -> {
+//            DatePickerDialog datePickerDialog =
+//                    new DatePickerDialog(EditHistoryActivity.this, d,
+//                    myCalendar.get(Calendar.YEAR),
+//                    myCalendar.get(Calendar.MONTH),
+//                    myCalendar.get(Calendar.DAY_OF_MONTH));
+//            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+//            datePickerDialog.getDatePicker().setMinDate(Objects.requireNonNull(DataProcessing
+//                    .getDate(((GlobalVariable) this.getApplication())
+//                            .getPresentSummaryPackage().getStartDate())).getTime() - 1000);
+//            datePickerDialog.show();
+//        });
+//        dateText.setKeyListener(null);
+//
+
+//        timeText.setOnClickListener(v -> {
+//            TimePickerDialog timePickerDialog =
+//                    new TimePickerDialog(EditHistoryActivity.this, t,
+//                    myCalendar.get(Calendar.HOUR_OF_DAY),
+//                    myCalendar.get(Calendar.MINUTE), true);
+//            timePickerDialog.show();
+//        });
+//        timeText.setKeyListener(null);
         updateLabel();
     }
 
@@ -427,14 +474,19 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
 
     /****************************Interface Functions***************************/
     @Override
-    public void addSuccess() {
-        reset();
-        Toast.makeText(getApplicationContext(), "Thêm bản ghi thành công!!!",
+    public void editSuccess() {
+        Toast.makeText(getApplicationContext(), "Sửa bản ghi thành công!!!",
                 Toast.LENGTH_SHORT).show();
+        this.finish();
     }
 
     @Override
-    public void addError(String msg) {
+    public void editError(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void removeError(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -456,77 +508,50 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
             TextView textViewValueN3 = findViewById(R.id.textViewValueN3);
             CheckBox checkBoxN4 = findViewById(R.id.checkBoxN4);
             TextView textViewValueN4 = findViewById(R.id.textViewValueN4);
-            Record record = new Record();
-            record.setTotal(DataProcessing.formatStringToInt(total.getText().toString()));
-            record.setBuyer(((GlobalVariable) this.getApplication()).getAccount().getId());
+            Record recordNew = new Record();
+            recordNew.setTotal(DataProcessing.formatStringToInt(total.getText().toString()));
+            recordNew.setBuyer(((GlobalVariable) this.getApplication()).getAccount().getId());
 
             if (checkBoxN1.isChecked()) {
                 int temp = Integer.parseInt(textViewValueN1.getText().toString());
-                record.setN1Qty(temp);
+                recordNew.setN1Qty(temp);
             } else {
-                record.setN1Qty(0);
+                recordNew.setN1Qty(0);
             }
             if (checkBoxN2.isChecked()) {
                 int temp = Integer.parseInt(textViewValueN2.getText().toString());
-                record.setN2Qty(temp);
+                recordNew.setN2Qty(temp);
             } else {
-                record.setN2Qty(0);
+                recordNew.setN2Qty(0);
             }
             if (checkBoxN3.isChecked()) {
                 int temp = Integer.parseInt(textViewValueN3.getText().toString());
-                record.setN3Qty(temp);
+                recordNew.setN3Qty(temp);
             } else {
-                record.setN3Qty(0);
+                recordNew.setN3Qty(0);
             }
             if (checkBoxN4.isChecked()) {
                 int temp = Integer.parseInt(textViewValueN4.getText().toString());
-                record.setN4Qty(temp);
+                recordNew.setN4Qty(temp);
             } else {
-                record.setN4Qty(0);
+                recordNew.setN4Qty(0);
             }
 
-            record.setTimeCreate(time.getText().toString());
-            record.setDateCreate(DataProcessing.getFormattedDate(myCalendar.getTime()));
-            record.setDescription(DataProcessing.
+            recordNew.setTimeCreate(time.getText().toString());
+            recordNew.setDateCreate(DataProcessing.getFormattedDate(myCalendar.getTime()));
+            recordNew.setDescription(DataProcessing.
                     formatDescription(description.getText().toString().trim()));
 
             if (checkNetworkStatus()) {
-                addPresenter.addRecord(((GlobalVariable) this.getApplication())
+
+                editHistoryPresenter.editRecord(((GlobalVariable) this.getApplication())
                                 .getAccount(),
                         ((GlobalVariable) this.getApplication())
                                 .getPresentMoneyPackage(),
-                        DataProcessing.setTotalOfRecord(record));
+                        DataProcessing.setTotalOfRecord(recordNew), record, key);
             }
         });
     }
-
-    @SuppressLint("SetTextI18n")
-    private void reset() {
-        EditText total = findViewById(R.id.total);
-        EditText time = findViewById(R.id.time);
-        EditText dateText = findViewById(R.id.date);
-        EditText description = findViewById(R.id.description);
-        CheckBox checkBoxN1 = findViewById(R.id.checkBoxN1);
-        CheckBox checkBoxN2 = findViewById(R.id.checkBoxN2);
-        CheckBox checkBoxN3 = findViewById(R.id.checkBoxN3);
-        CheckBox checkBoxN4 = findViewById(R.id.checkBoxN4);
-
-        total.setText("000");
-        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm",
-                Locale.getDefault());
-        time.setText(simpleTimeFormat.format(new Date().getTime()));
-        dateText.setText(DataProcessing.getEditDate(new Date()));
-        description.setText("");
-        checkBoxN1.setChecked(true);
-        checkBoxN2.setChecked(true);
-        checkBoxN3.setChecked(true);
-        checkBoxN4.setChecked(true);
-        setImageClickN1(findViewById(R.id.add_view));
-        setImageClickN2(findViewById(R.id.add_view));
-        setImageClickN3(findViewById(R.id.add_view));
-        setImageClickN4(findViewById(R.id.add_view));
-    }
-
 
     /****************************OnPress Function***************************/
     @SuppressLint("SetTextI18n")
@@ -534,7 +559,7 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
         EditText total = findViewById(R.id.total);
         total.setOnFocusChangeListener((v, hasFocus) -> {
             if (total.getText().length() > 13) {
-                Toast.makeText(AddActivity.this,
+                Toast.makeText(EditHistoryActivity.this,
                         "Value cannot be above 10,000,000,000!!!", Toast.LENGTH_SHORT).show();
                 total.setText("000");
                 total.setSelection(0);

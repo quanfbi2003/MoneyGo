@@ -7,7 +7,7 @@ public class Summary implements Serializable {
     private String endDate;
     private String monthOfYear;
     private int month;
-    private int totalMoneySpent;
+    private int totalMoneySpent; // totalMoneySpent += Record.getTotal()
     private int numberOfElectricity;
     private int totalOfElectricity;
     private int numberOfWater;

@@ -2,17 +2,18 @@ package com.dofl.moneygo.model;
 
 import android.app.Application;
 
-import java.util.Map;
-
 public class GlobalVariable extends Application {
     private RegisteredAccount registeredAccount;
     private Account account;
     private MoneyPackage presentMoneyPackage;
     private MoneyPackage previousMoneyPackage;
-    private Map<String, Record> presentRecordPackage;
-    private Map<String, Record> previousRecordPackage;
-    private Summary presentSummaryPackage;
-    private Summary previousSummaryPackage;
+    private Summary presentSummaryPackage; //Bo di
+    private Summary previousSummaryPackage; //Bo di
+    private MoneyPackage n1MoneyPackage;
+    private MoneyPackage n2MoneyPackage;
+    private MoneyPackage n3MoneyPackage;
+    private MoneyPackage n4MoneyPackage;
+    private int neighborNetwork;
 
     public RegisteredAccount getRegisteredAccount() {
         return registeredAccount;
@@ -27,10 +28,12 @@ public class GlobalVariable extends Application {
         this.account = null;
         this.presentMoneyPackage = null;
         this.previousMoneyPackage = null;
-        this.presentRecordPackage = null;
-        this.previousRecordPackage = null;
         this.presentSummaryPackage = null;
         this.previousSummaryPackage = null;
+        this.n1MoneyPackage = null;
+        this.n2MoneyPackage = null;
+        this.n3MoneyPackage = null;
+        this.n4MoneyPackage = null;
     }
 
     public Account getAccount() {
@@ -57,22 +60,6 @@ public class GlobalVariable extends Application {
         this.previousMoneyPackage = previousMoneyPackage;
     }
 
-    public Map<String, Record> getPresentRecordPackage() {
-        return presentRecordPackage;
-    }
-
-    public void setPresentRecordPackage(Map<String, Record> presentRecordPackage) {
-        this.presentRecordPackage = presentRecordPackage;
-    }
-
-    public Map<String, Record> getPreviousRecordPackage() {
-        return previousRecordPackage;
-    }
-
-    public void setPreviousRecordPackage(Map<String, Record> previousRecordPackage) {
-        this.previousRecordPackage = previousRecordPackage;
-    }
-
     public Summary getPresentSummaryPackage() {
         return presentSummaryPackage;
     }
@@ -87,5 +74,45 @@ public class GlobalVariable extends Application {
 
     public void setPreviousSummaryPackage(Summary previousSummaryPackage) {
         this.previousSummaryPackage = previousSummaryPackage;
+    }
+
+    public MoneyPackage getN1MoneyPackage() {
+        return n1MoneyPackage;
+    }
+
+    public void setN1MoneyPackage(MoneyPackage n1MoneyPackage) {
+        this.n1MoneyPackage = n1MoneyPackage;
+    }
+
+    public MoneyPackage getN2MoneyPackage() {
+        return n2MoneyPackage;
+    }
+
+    public void setN2MoneyPackage(MoneyPackage n2MoneyPackage) {
+        this.n2MoneyPackage = n2MoneyPackage;
+    }
+
+    public MoneyPackage getN3MoneyPackage() {
+        return n3MoneyPackage;
+    }
+
+    public void setN3MoneyPackage(MoneyPackage n3MoneyPackage) {
+        this.n3MoneyPackage = n3MoneyPackage;
+    }
+
+    public MoneyPackage getN4MoneyPackage() {
+        return n4MoneyPackage;
+    }
+
+    public void setN4MoneyPackage(MoneyPackage n4MoneyPackage) {
+        this.n4MoneyPackage = n4MoneyPackage;
+    }
+
+    public int getNeighborNetwork() {
+        return neighborNetwork;
+    }
+
+    public void setNeighborNetwork(int neighborNetwork) {
+        this.neighborNetwork = neighborNetwork;
     }
 }

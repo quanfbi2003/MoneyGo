@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -22,16 +23,15 @@ import com.dofl.moneygo.R;
 import com.dofl.moneygo.model.Account;
 import com.dofl.moneygo.model.GlobalVariable;
 import com.dofl.moneygo.model.MoneyPackage;
-import com.dofl.moneygo.model.Record;
 import com.dofl.moneygo.model.RegisteredAccount;
 import com.dofl.moneygo.model.Summary;
 import com.dofl.moneygo.presenter.MenuInterface;
 import com.dofl.moneygo.presenter.MenuPresenter;
 import com.dofl.moneygo.presenter.utils.DataProcessing;
+import com.dofl.moneygo.presenter.utils.ForegroundServices;
 import com.dofl.moneygo.view.adapter.GridViewMenuAdapter;
 
 import java.util.Date;
-import java.util.Map;
 
 public class MenuActivity extends AppCompatActivity implements MenuInterface {
     private DrawerLayout drawerLayout;
@@ -87,36 +87,38 @@ public class MenuActivity extends AppCompatActivity implements MenuInterface {
                         break;
 
                     case 1:
-//                    Intent intent1 = new Intent(MainActivity.this,
-//                            HistoryActivity.class);
-//                    startActivity(intent1);
+                        Intent intent1 = new Intent(MenuActivity.this,
+                                HistoryActivity.class);
+                        startActivity(intent1);
                         break;
-//
+
                     case 2:
                         Intent intent2 = new Intent(MenuActivity.this,
                                 ReportActivity.class);
                         startActivity(intent2);
                         break;
                     case 3:
-//                    Intent intent3 = new Intent(MainActivity.this,
-//                            FeeDetailActivity.class);
-//                    startActivity(intent3);
+                        Intent intent3 = new Intent(MenuActivity.this,
+                                FeeDetailActivity.class);
+                        startActivity(intent3);
                         break;
                     case 5:
-//                    if (account.getRole().equalsIgnoreCase("administrator")) {
-//                        Intent intent5 = new Intent(MainActivity.this,
-//                                ManageActivity.class);
-//                        startActivity(intent5);
-//                    } else {
-//                        new AlertDialog.Builder(this)
-//                                .setTitle("Từ chối truy cập!!!")
-//                                .setMessage("Bạn không đủ quyền để sử dụng chức năng này!!!")
-//                                .setPositiveButton(android.R.string.ok, null)
-//                                .setIcon(android.R.drawable.ic_dialog_alert)
-//                                .show();
-//                    }
+                        if (((GlobalVariable) this.getApplication())
+                                .getAccount().getRole()
+                                .equalsIgnoreCase("administrator")) {
+                            Intent intent5 = new Intent(MenuActivity.this,
+                                    ManageActivity.class);
+                            startActivity(intent5);
+                        } else {
+                            new AlertDialog.Builder(this)
+                                    .setTitle("Từ chối truy cập!!!")
+                                    .setMessage("Bạn không đủ quyền để sử dụng chức năng này!!!")
+                                    .setPositiveButton(android.R.string.ok, null)
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
                         break;
-//
+
                 }
             }
         });
@@ -167,9 +169,16 @@ public class MenuActivity extends AppCompatActivity implements MenuInterface {
                 loginPrefsEditor.putString("email", null);
                 loginPrefsEditor.putString("password", null);
                 loginPrefsEditor.apply();
+                Intent serviceIntent = new Intent(this, ForegroundServices.class);
+                stopService(serviceIntent);
                 startActivity(new Intent(MenuActivity.this, LoginActivity.class));
                 MenuActivity.this.finish();
             });
+        }
+
+        if (item.getItemId() == R.id.top_bar_noti) {
+            Intent serviceIntent = new Intent(this, ForegroundServices.class);
+            stopService(serviceIntent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -187,6 +196,10 @@ public class MenuActivity extends AppCompatActivity implements MenuInterface {
     @Override
     public void updateAccountSuccess(Account account) {
         Log.e("Update2", "AccountSuccess");
+        Intent serviceIntent = new Intent(this, ForegroundServices.class);
+        serviceIntent.putExtra("accountId", account.getId() + "");
+        serviceIntent.putExtra("username", account.getDisplayName() + "");
+        ContextCompat.startForegroundService(this, serviceIntent);
         ((GlobalVariable) this.getApplication()).setAccount(account);
         TextView textView = findViewById(R.id.displayName);
         textView.setText(account.getDisplayName());
@@ -199,7 +212,6 @@ public class MenuActivity extends AppCompatActivity implements MenuInterface {
         ((GlobalVariable) this.getApplication()).setPresentMoneyPackage(presentMoneyPackage);
         if (((GlobalVariable) this.getApplication()).getPresentMoneyPackage() != null
                 && ((GlobalVariable) this.getApplication()).getPreviousMoneyPackage() != null) {
-            menuPresenter.updateRecordPackage();
             menuPresenter.updateSummaryPackage();
         }
     }
@@ -210,32 +222,19 @@ public class MenuActivity extends AppCompatActivity implements MenuInterface {
         ((GlobalVariable) this.getApplication()).setPreviousMoneyPackage(previousMoneyPackage);
         if (((GlobalVariable) this.getApplication()).getPresentMoneyPackage() != null
                 && ((GlobalVariable) this.getApplication()).getPreviousMoneyPackage() != null) {
-            menuPresenter.updateRecordPackage();
             menuPresenter.updateSummaryPackage();
         }
     }
 
     @Override
-    public void updatePresentRecordPackage(Map<String, Record> presentRecordPackage) {
-        ((GlobalVariable) this.getApplication()).setPresentRecordPackage(presentRecordPackage);
-//        Log.e("PresentRecordPackage", presentRecordPackage.size() + "");
-    }
-
-    @Override
-    public void updatePreviousRecordPackage(Map<String, Record> previousRecordPackage) {
-        ((GlobalVariable) this.getApplication()).setPreviousRecordPackage(previousRecordPackage);
-//        Log.e("PreviousRecordPackage", previousRecordPackage.size() + "");
-    }
-
-    @Override
     public void updatePresentSummaryPackageSuccess(Summary presentSummaryPackage) {
-        Log.e("Update5", "PresentSummaryPackageSuccess");
+        Log.e("Update6", "PresentSummaryPackageSuccess");
         ((GlobalVariable) this.getApplication()).setPresentSummaryPackage(presentSummaryPackage);
     }
 
     @Override
     public void updatePreviousSummaryPackageSuccess(Summary previousSummaryPackage) {
-        Log.e("Update6", "PreviousSummaryPackageSuccess");
+        Log.e("Update5", "PreviousSummaryPackageSuccess");
         ((GlobalVariable) this.getApplication()).setPreviousSummaryPackage(previousSummaryPackage);
     }
 

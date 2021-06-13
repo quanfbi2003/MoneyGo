@@ -7,7 +7,7 @@ public class MoneyPackage implements Serializable {
     private String summaryPackage;
     private int previousMoney;
     private int totalMoney; // totalMoney = presentMoney + previousMoney - moneySent;
-    private int presentMoney; // presentMoney = moneyPaid - moneySpent;
+    private int presentMoney; // presentMoney += moneyPaid - moneySpent;
     private int numberOfRecord;
     private int moneySpent; //Số tiền đã chi
     private int moneyPaid; //Số tiền phải trả

@@ -1,16 +1,21 @@
 package com.dofl.moneygo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.dofl.moneygo.model.Account;
 import com.dofl.moneygo.model.MoneyPackage;
 import com.dofl.moneygo.model.Record;
 import com.dofl.moneygo.model.Summary;
+import com.dofl.moneygo.presenter.utils.ForegroundServices;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,13 +26,40 @@ import com.google.firebase.functions.FirebaseFunctions;
 public class MainActivity extends AppCompatActivity {
     private MoneyPackage moneyPackage1, moneyPackage2, moneyPackage3, moneyPackage4;
     private FirebaseFunctions mFunctions;
+    private Button btnStartService, btnStopService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mFunctions = FirebaseFunctions.getInstance();
+        //mFunctions = FirebaseFunctions.getInstance();
 
+        btnStartService = findViewById(R.id.buttonStartService);
+        btnStopService = findViewById(R.id.buttonStopService);
+        btnStartService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startService();
+            }
+        });
+        btnStopService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopService();
+            }
+        });
+
+    }
+
+    public void startService() {
+        Intent serviceIntent = new Intent(this, ForegroundServices.class);
+        serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android");
+        ContextCompat.startForegroundService(this, serviceIntent);
+    }
+
+    public void stopService() {
+        Intent serviceIntent = new Intent(this, ForegroundServices.class);
+        stopService(serviceIntent);
     }
 
     private void getRecord() {
@@ -80,27 +112,27 @@ public class MainActivity extends AppCompatActivity {
                         moneyPackage3.setTotalMoney(moneyPackage3.getPresentMoney() + moneyPackage3.getPreviousMoney());
                         moneyPackage4.setPresentMoney(moneyPackage4.getMoneyPaid() - moneyPackage4.getMoneySpent() + 697500);
                         moneyPackage4.setTotalMoney(moneyPackage4.getPresentMoney() + moneyPackage4.getPreviousMoney());
-                        TextView textView = findViewById(R.id.tv);
-                        textView.setText("N1\nTổng tiền nợ: " + moneyPackage1.getTotalMoney()
-                                + "\nTiền nợ tháng này: " + moneyPackage1.getPresentMoney()
-                                + "\nTổng số bản ghi: " + moneyPackage1.getNumberOfRecord()
-                                + "\nSố tiền đã chi: " + moneyPackage1.getMoneySpent()
-                                + "\nSố tiền phải trả: " + moneyPackage1.getMoneyPaid());
-                        textView.append("\nN2\nTổng tiền nợ: " + moneyPackage2.getTotalMoney()
-                                + "\nTiền nợ tháng này: " + moneyPackage2.getPresentMoney()
-                                + "\nTổng số bản ghi: " + moneyPackage2.getNumberOfRecord()
-                                + "\nSố tiền đã chi: " + moneyPackage2.getMoneySpent()
-                                + "\nSố tiền phải trả: " + moneyPackage2.getMoneyPaid());
-                        textView.append("\nN3\nTổng tiền nợ: " + moneyPackage3.getTotalMoney()
-                                + "\nTiền nợ tháng này: " + moneyPackage3.getPresentMoney()
-                                + "\nTổng số bản ghi: " + moneyPackage3.getNumberOfRecord()
-                                + "\nSố tiền đã chi: " + moneyPackage3.getMoneySpent()
-                                + "\nSố tiền phải trả: " + moneyPackage3.getMoneyPaid());
-                        textView.append("\nN4\nTổng tiền nợ: " + moneyPackage4.getTotalMoney()
-                                + "\nTiền nợ tháng này: " + moneyPackage4.getPresentMoney()
-                                + "\nTổng số bản ghi: " + moneyPackage4.getNumberOfRecord()
-                                + "\nSố tiền đã chi: " + moneyPackage4.getMoneySpent()
-                                + "\nSố tiền phải trả: " + moneyPackage4.getMoneyPaid());
+                        //TextView textView = findViewById(R.id.tv);
+//                        textView.setText("N1\nTổng tiền nợ: " + moneyPackage1.getTotalMoney()
+//                                + "\nTiền nợ tháng này: " + moneyPackage1.getPresentMoney()
+//                                + "\nTổng số bản ghi: " + moneyPackage1.getNumberOfRecord()
+//                                + "\nSố tiền đã chi: " + moneyPackage1.getMoneySpent()
+//                                + "\nSố tiền phải trả: " + moneyPackage1.getMoneyPaid());
+//                        textView.append("\nN2\nTổng tiền nợ: " + moneyPackage2.getTotalMoney()
+//                                + "\nTiền nợ tháng này: " + moneyPackage2.getPresentMoney()
+//                                + "\nTổng số bản ghi: " + moneyPackage2.getNumberOfRecord()
+//                                + "\nSố tiền đã chi: " + moneyPackage2.getMoneySpent()
+//                                + "\nSố tiền phải trả: " + moneyPackage2.getMoneyPaid());
+//                        textView.append("\nN3\nTổng tiền nợ: " + moneyPackage3.getTotalMoney()
+//                                + "\nTiền nợ tháng này: " + moneyPackage3.getPresentMoney()
+//                                + "\nTổng số bản ghi: " + moneyPackage3.getNumberOfRecord()
+//                                + "\nSố tiền đã chi: " + moneyPackage3.getMoneySpent()
+//                                + "\nSố tiền phải trả: " + moneyPackage3.getMoneyPaid());
+//                        textView.append("\nN4\nTổng tiền nợ: " + moneyPackage4.getTotalMoney()
+//                                + "\nTiền nợ tháng này: " + moneyPackage4.getPresentMoney()
+//                                + "\nTổng số bản ghi: " + moneyPackage4.getNumberOfRecord()
+//                                + "\nSố tiền đã chi: " + moneyPackage4.getMoneySpent()
+//                                + "\nSố tiền phải trả: " + moneyPackage4.getMoneyPaid());
                     }
 
                     @Override

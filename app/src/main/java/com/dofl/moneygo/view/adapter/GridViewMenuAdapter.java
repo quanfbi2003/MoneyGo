@@ -25,6 +25,12 @@ public class GridViewMenuAdapter extends BaseAdapter {
                 R.drawable.main_menu_analyze, R.drawable.main_menu_manage};
     }
 
+    public GridViewMenuAdapter(Context context, String[] functionName, int[] functionImage) {
+        this.context = context;
+        this.functionName = functionName;
+        this.functionImage = functionImage;
+    }
+
     @Override
     public int getCount() {
         return functionName.length;

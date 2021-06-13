@@ -3,14 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/top_bar_noti"
-        android:icon="@drawable/nav_noti"
+        android:id="@+id/history"
+        android:icon="@drawable/add_menu_history"
         android:title="@string/information"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/top_bar_info"
-        android:icon="@drawable/top_bar_info"
-        android:title="@string/information"
-        app:showAsAction="always" />
-
 </menu>

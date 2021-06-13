@@ -17,6 +17,8 @@ public class Record implements Serializable {
     private int n2Total;
     private int n3Total;
     private int n4Total;
+    private String moneyPackage;
+    private String summaryPackage;
 
     public Record() {
     }
@@ -162,5 +164,21 @@ public class Record implements Serializable {
 
     public void setN4Total(int n4Total) {
         this.n4Total = n4Total;
+    }
+
+    public String getMoneyPackage() {
+        return moneyPackage;
+    }
+
+    public void setMoneyPackage(String moneyPackage) {
+        this.moneyPackage = moneyPackage;
+    }
+
+    public String getSummaryPackage() {
+        return summaryPackage;
+    }
+
+    public void setSummaryPackage(String summaryPackage) {
+        this.summaryPackage = summaryPackage;
     }
 }

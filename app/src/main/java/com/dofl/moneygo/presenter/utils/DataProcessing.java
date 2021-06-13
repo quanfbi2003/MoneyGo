@@ -1,12 +1,17 @@
 package com.dofl.moneygo.presenter.utils;
 
+import com.dofl.moneygo.model.FeeDetails;
 import com.dofl.moneygo.model.Record;
+import com.dofl.moneygo.model.Summary;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class DataProcessing {
@@ -53,16 +58,16 @@ public class DataProcessing {
 
         return record;
     }
-//
-//    public static List<Record> getRecordPackage(Account account, List<Record> list) {
-//        List<Record> listRecord = new ArrayList<>();
-//        for (Record record : list) {
-//            if (account.getId() == record.getBuyer()) {
-//                listRecord.add(record);
-//            }
-//        }
-//        return listRecord;
-//    }
+
+    public static Map<String, Record> getRecordPackage(int id, Map<String, Record> list) {
+        Map<String, Record> listRecord = new HashMap<>();
+        for (Map.Entry<String, Record> entry : list.entrySet()) {
+            if (id == entry.getValue().getBuyer()) {
+                listRecord.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return listRecord;
+    }
 
 
     /****************************List Record***************************/
@@ -138,18 +143,13 @@ public class DataProcessing {
 //        }
 //        return amount;
 //    }
-//
-//    public static int getAirConditional(MPM presentMPM) {
-//        if (presentMPM.getMonth() >= 5 && presentMPM.getMonth() <= 7) {
-//            return 100000;
-//        } else return 0;
-//    }
-//
-//    public static int getRoomCharge(MPM presentMPM) {
-//        int roomCharge = (2000000 + 80000 + 50000) / 4; //Tiền mạng - 50,000 đ
-//        return roomCharge + getAirConditional(presentMPM) / 4;
-//    }
-//
+    public static int getAirConditional(Summary summary) {
+        if (summary.getMonth() >= 4 && summary.getMonth() <= 6) {
+            return FeeDetails.AIR_CONDITIONAL;
+        } else return 0;
+    }
+
+
 //    public static int getTotalOfAmount(Account account, List<Record> listRecord,
 //                                       MPM previousMPM, MPM presentMPM) {
 //        return getTotalOfAmountSpent(account, listRecord)
@@ -174,6 +174,10 @@ public class DataProcessing {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static String[] getTime(String timeText) {
+        return timeText.split(":");
     }
 
     public static Date getDate(String dateText) {
@@ -221,32 +225,32 @@ public class DataProcessing {
             return (list[Integer.parseInt(dateTemp[0])] + " - " + dateTemp[1]);
         }
     }
-//
-//    public static String increaseMonthOfMPM(String month) {
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M/yyyy",
-//                Locale.getDefault());
-//        String[] monthOfYear = month.split(" ");
-//        Calendar calendar = Calendar.getInstance();
-//        try {
-//            calendar.setTime(Objects.requireNonNull(simpleDateFormat.parse(monthOfYear[1])));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        calendar.add(Calendar.MONTH, 1);
-//        return "Tháng " + simpleDateFormat.format(calendar.getTime());
-//
-//    }
-//
-//    public static String increaseExactDate(Date date) {
-//        Calendar calendar = Calendar.getInstance();
-//        try {
-//            calendar.setTime(date);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        calendar.add(Calendar.DAY_OF_MONTH, 1);
-//        return getExactDate(calendar.getTime());
-//    }
+
+    public static String increaseMonthOfYear(String month) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M/yyyy",
+                Locale.getDefault());
+        String[] monthOfYear = month.split(" ");
+        Calendar calendar = Calendar.getInstance();
+        try {
+            calendar.setTime(Objects.requireNonNull(simpleDateFormat.parse(monthOfYear[1])));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        calendar.add(Calendar.MONTH, 1);
+        return "Tháng " + simpleDateFormat.format(calendar.getTime());
+
+    }
+
+    public static String increaseExactDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        try {
+            calendar.setTime(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        return getFormattedDate(calendar.getTime());
+    }
 
 
     /****************************Initial Value***************************/
