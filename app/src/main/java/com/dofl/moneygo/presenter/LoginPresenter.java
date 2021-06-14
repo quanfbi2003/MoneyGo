@@ -10,16 +10,24 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginPresenter {
     private final LoginInterface loginInterface;
     private FirebaseAuth firebaseAuth;
+    private final DatabaseReference databaseReference;
     private Context context;
 
     public LoginPresenter(Context context, LoginInterface loginInterface) {
         this.loginInterface = loginInterface;
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         this.context = context;
+    }
+
+    public void openSystem() {
+        databaseReference.child("Maintenance").setValue("false");
     }
 
     public void login(Account account) {

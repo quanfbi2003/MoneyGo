@@ -86,28 +86,28 @@ public class SettlementActivity extends AppCompatActivity implements SettlementI
                         .getPreviousSummaryPackage().getTotalOfElectricity()
                         + " số - " + DataProcessing
                         .formatIntToString(((GlobalVariable) getApplication())
-                        .getPreviousSummaryPackage().getTotalOfElectricity()
-                        * FeeDetails.ELECTRICITY) + " VND\n" +
-                        "Nước: "+((GlobalVariable) getApplication())
+                                .getPreviousSummaryPackage().getTotalOfElectricity()
+                                * FeeDetails.ELECTRICITY) + " VND\n" +
+                        "Nước: " + ((GlobalVariable) getApplication())
                         .getPreviousSummaryPackage().getNumberOfWater()
-                        +" - "+((GlobalVariable) getApplication())
+                        + " - " + ((GlobalVariable) getApplication())
                         .getPreviousSummaryPackage().getTotalOfWater()
-                        +" khối - "+DataProcessing
+                        + " khối - " + DataProcessing
                         .formatIntToString(((GlobalVariable) getApplication())
-                        .getPreviousSummaryPackage().getTotalOfWater()
-                        * FeeDetails.WATER)+" VND\n" +
-                        "Vệ sinh + Điện công cộng: "+DataProcessing
-                        .formatIntToString(FeeDetails.SERVICES)+" VND\n" +
-                        "Mạng: "+DataProcessing
-                        .formatIntToString(FeeDetails.INTERNET)+" VND\n" +
-                        "Bảo dưỡng điều hòa: "+DataProcessing
+                                .getPreviousSummaryPackage().getTotalOfWater()
+                                * FeeDetails.WATER) + " VND\n" +
+                        "Vệ sinh + Điện công cộng: " + DataProcessing
+                        .formatIntToString(FeeDetails.SERVICES) + " VND\n" +
+                        "Mạng: " + DataProcessing
+                        .formatIntToString(FeeDetails.INTERNET) + " VND\n" +
+                        "Bảo dưỡng điều hòa: " + DataProcessing
                         .formatIntToString(((GlobalVariable) getApplication())
-                        .getPreviousSummaryPackage().getAirConditional())+" VND\n" +
-                        "Tiền phòng: "+DataProcessing
-                        .formatIntToString(FeeDetails.ROOM_CHARGE)+" VND\n" +
-                        "Tổng: "+DataProcessing
+                                .getPreviousSummaryPackage().getAirConditional()) + " VND\n" +
+                        "Tiền phòng: " + DataProcessing
+                        .formatIntToString(FeeDetails.ROOM_CHARGE) + " VND\n" +
+                        "Tổng: " + DataProcessing
                         .formatIntToString(((GlobalVariable) getApplication())
-                                .getPreviousSummaryPackage().getTotalMoneyPaid())+" VND");
+                                .getPreviousSummaryPackage().getTotalMoneyPaid()) + " VND");
                 sendIntent.setType("text/plain");
 
                 Intent shareIntent = Intent.createChooser(sendIntent, null);
@@ -152,7 +152,35 @@ public class SettlementActivity extends AppCompatActivity implements SettlementI
     public void success() {
         Toast.makeText(getApplicationContext(), "Quyết toán thành công!!!",
                 Toast.LENGTH_SHORT).show();
-        txtSoDien.setText("");
-        txtSoNuoc.setText("");
+
+        new AlertDialog.Builder(SettlementActivity.this)
+                .setTitle("Thông báo!!!")
+                .setMessage("Hệ thống cần khởi động lại, chọn OK để đóng ứng dụng!!!")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.ok,
+                        (dialog, which) -> {
+                            settlementPresenter.setMaintenance();
+                            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("EXIT", true);
+                            startActivity(intent);
+                        })
+                .show();
+    }
+
+    @Override
+    public void error(String msg) {
+        new AlertDialog.Builder(SettlementActivity.this)
+                .setTitle("Thông báo!!!")
+                .setMessage("Hệ thống cần khởi động lại vì có lỗi xảy ra, chọn OK để đóng ứng dụng!!!")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.ok,
+                        (dialog, which) -> {
+                            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("EXIT", true);
+                            startActivity(intent);
+                        })
+                .show();
     }
 }

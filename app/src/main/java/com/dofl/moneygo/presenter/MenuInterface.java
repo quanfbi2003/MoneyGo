@@ -19,4 +19,6 @@ public interface MenuInterface {
     void updatePreviousSummaryPackageSuccess(Summary previousSummaryPackage);
 
     void updateError(String msg);
+
+    void maintenance();
 }

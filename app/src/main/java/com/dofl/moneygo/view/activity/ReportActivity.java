@@ -104,7 +104,7 @@ public class ReportActivity extends AppCompatActivity {
         moneyPaid.setText(DataProcessing
                 .formatIntToString(presentMoneyPackage.getMoneyPaid()) + " đ");
         roomCharge.setText(DataProcessing.formatIntToString((FeeDetails.ROOM_CHARGE
-                + FeeDetails.INTERNET + FeeDetails.SERVICES
+                + FeeDetails.INTERNET - FeeDetails.NEIGHBOR_INTERNET + FeeDetails.SERVICES
                 + presentSummaryPackage.getAirConditional()) / 4) + " đ");
         electricityBill.setText("0 đ");
         waterBill.setText("0 đ");
@@ -170,7 +170,7 @@ public class ReportActivity extends AppCompatActivity {
         moneyPaid.setText(DataProcessing
                 .formatIntToString(previousMoneyPackage.getMoneyPaid()) + " đ");
         roomCharge.setText(DataProcessing.formatIntToString((FeeDetails.ROOM_CHARGE
-                + FeeDetails.INTERNET + FeeDetails.SERVICES
+                + FeeDetails.INTERNET - FeeDetails.NEIGHBOR_INTERNET + FeeDetails.SERVICES
                 + previousSummaryPackage.getAirConditional()) / 4) + " đ");
         electricityBill.setText(DataProcessing
                 .formatIntToString(previousSummaryPackage

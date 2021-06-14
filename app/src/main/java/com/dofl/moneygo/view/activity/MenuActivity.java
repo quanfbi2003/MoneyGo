@@ -49,9 +49,12 @@ public class MenuActivity extends AppCompatActivity implements MenuInterface {
 
     /****************************Initial Value***************************/
     private void initValue() {
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
         menuPresenter = new MenuPresenter(this);
         menuPresenter.updateRegisteredAccount();
-
+        menuPresenter.checkMaintenance();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -137,7 +140,7 @@ public class MenuActivity extends AppCompatActivity implements MenuInterface {
                     .setMessage("Không có kết nối mạng, chọn OK để đóng ứng dụng!!!")
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(android.R.string.ok,
-                            (dialog, which) -> System.exit(0))
+                            (dialog, which) -> finishAffinity())
                     .show();
         }
         return getNetworkStatus();
@@ -242,5 +245,21 @@ public class MenuActivity extends AppCompatActivity implements MenuInterface {
     public void updateError(String msg) {
         Log.e("Log", msg);
         initFunction();
+    }
+
+    @Override
+    public void maintenance() {
+        new AlertDialog.Builder(MenuActivity.this)
+                .setTitle("Thông báo!!!")
+                .setMessage("Hệ thống đang bảo trì, chọn OK để đóng ứng dụng!!!")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.ok,
+                        (dialog, which) -> {
+                            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("EXIT", true);
+                            startActivity(intent);
+                        })
+                .show();
     }
 }

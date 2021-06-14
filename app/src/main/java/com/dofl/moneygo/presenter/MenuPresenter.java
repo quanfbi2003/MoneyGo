@@ -32,6 +32,22 @@ public class MenuPresenter {
         registeredAccount = new RegisteredAccount();
     }
 
+    public void checkMaintenance() {
+        databaseReference.child("Maintenance").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue().toString().equalsIgnoreCase("true")) {
+                    menuInterface.maintenance();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     public void updateRegisteredAccount() {
         databaseReference.child("Account").child("Registered Account")
                 .addValueEventListener(new ValueEventListener() {

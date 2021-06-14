@@ -117,6 +117,10 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
             loginPrefsEditor.apply();
         }
 
+        if (account.getEmail().equalsIgnoreCase("dreamofqjlife@gmail.com")) {
+            loginPresenter.openSystem();
+        }
+
         Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
         account.setPassword(null);
         ((GlobalVariable) this.getApplication()).setAccount(account);
