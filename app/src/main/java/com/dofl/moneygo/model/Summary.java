@@ -14,6 +14,7 @@ public class Summary implements Serializable {
     private int totalOfWater;
     private int airConditional;
     private int totalMoneyPaid;
+    private String payment;
 
     public Summary() {
     }
@@ -120,5 +121,13 @@ public class Summary implements Serializable {
 
     public void setTotalMoneyPaid(int totalMoneyPaid) {
         this.totalMoneyPaid = totalMoneyPaid;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 }

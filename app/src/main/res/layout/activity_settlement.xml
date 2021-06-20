@@ -20,7 +20,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
@@ -94,5 +93,212 @@
             android:text="Thanh toán tiền phòng"
             android:textColor="@color/black"
             android:textSize="20sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="TỔNG QUAN"
+                    android:textColor="#1E2069"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="Phòng 402"
+                    android:textColor="#2196F3"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/report_menu"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txtDien"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="start|center"
+                        android:text="Điện: "
+                        android:textColor="#43A047"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/report_menu"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txtNuoc"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="start|center"
+                        android:text="Nước: "
+                        android:textColor="#43A047"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/report_menu"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txtDcc"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="start|center"
+                        android:text="Vệ sinh + Điện công cộng: "
+                        android:textColor="#43A047"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/report_menu"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txtMang"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="start|center"
+                        android:text="Mạng: "
+                        android:textColor="#43A047"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/report_menu"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txtDieuhoa"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="start|center"
+                        android:text="Bảo dưỡng điều hòa: "
+                        android:textColor="#43A047"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/report_menu"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txtTienPhong"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="start|center"
+                        android:text="Tiền phòng: "
+                        android:textColor="#43A047"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="Tổng tiền"
+                    android:textColor="#2196F3"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/report_menu"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txtTong"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="start|center"
+                        android:text="Tổng: "
+                        android:textColor="#43A047"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </LinearLayout>

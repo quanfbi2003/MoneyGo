@@ -1,7 +1,5 @@
 package com.dofl.moneygo.presenter;
 
-import android.util.Log;
-
 import com.dofl.moneygo.model.Account;
 import com.dofl.moneygo.model.FeeDetails;
 import com.dofl.moneygo.model.MoneyPackage;
@@ -25,6 +23,11 @@ public class SettlementPresenter {
         databaseReference.child("Maintenance").setValue("true");
     }
 
+    public void setPayment(MoneyPackage moneyPackage) {
+        databaseReference.child("Summary").child(moneyPackage.getSummaryPackage())
+                .setValue("Đã thanh toán");
+    }
+
     public void newMonth(Account account, MoneyPackage n1MoneyPackage, MoneyPackage n2MoneyPackage,
                          MoneyPackage n3MoneyPackage, MoneyPackage n4MoneyPackage,
                          Summary presentSummaryPackage,
@@ -37,8 +40,7 @@ public class SettlementPresenter {
         if (previousSummaryPackage.getNumberOfElectricity() == 0
                 || previousSummaryPackage.getNumberOfWater() == 0) {
             settlementInterface.error("Có lỗi xảy ra, mời thử lại!!!");
-        }
-        else {
+        } else {
             presentSummaryPackage.setTotalOfElectricity(soDien -
                     previousSummaryPackage.getNumberOfElectricity());
             presentSummaryPackage.setTotalOfWater(soNuoc - previousSummaryPackage
@@ -114,6 +116,7 @@ public class SettlementPresenter {
             newSummaryPackage.setTotalMoneySpent(0);
             newSummaryPackage.setTotalMoneyPaid(FeeDetails.ROOM_CHARGE + FeeDetails.SERVICES
                     + FeeDetails.INTERNET + newSummaryPackage.getAirConditional());
+            newSummaryPackage.setPayment("Chưa thanh toán");
             assert newSummaryPackageKey != null;
             databaseReference.child("Summary").child(newSummaryPackageKey)
                     .setValue(newSummaryPackage);

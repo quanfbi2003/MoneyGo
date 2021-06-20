@@ -1,5 +1,6 @@
 package com.dofl.moneygo.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -7,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -33,6 +35,7 @@ public class SettlementActivity extends AppCompatActivity implements SettlementI
         setContentView(R.layout.activity_settlement);
 
         initValue();
+        importValue();
     }
 
 
@@ -77,6 +80,9 @@ public class SettlementActivity extends AppCompatActivity implements SettlementI
         findViewById(R.id.thanhToan).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                settlementPresenter.setPayment(((GlobalVariable) getApplication())
+                        .getPreviousMoneyPackage());
+                importValue();
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "Phòng 402\n" +
@@ -114,6 +120,49 @@ public class SettlementActivity extends AppCompatActivity implements SettlementI
                 startActivity(shareIntent);
             }
         });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void importValue() {
+        TextView txtDien = findViewById(R.id.txtDien);
+        TextView txtNuoc = findViewById(R.id.txtNuoc);
+        TextView txtDcc = findViewById(R.id.txtDcc);
+        TextView txtMang = findViewById(R.id.txtMang);
+        TextView txtDieuhoa = findViewById(R.id.txtDieuhoa);
+        TextView txtTienPhong = findViewById(R.id.txtTienPhong);
+        TextView txtPayment = findViewById(R.id.txtPayment);
+        TextView txtTong = findViewById(R.id.txtTong);
+
+        txtDien.setText("Điện: " + ((GlobalVariable) getApplication())
+                .getPreviousSummaryPackage().getNumberOfElectricity() + " - "
+                + ((GlobalVariable) getApplication())
+                .getPreviousSummaryPackage().getTotalOfElectricity()
+                + " số - " + DataProcessing
+                .formatIntToString(((GlobalVariable) getApplication())
+                        .getPreviousSummaryPackage().getTotalOfElectricity()
+                        * FeeDetails.ELECTRICITY) + " VND");
+        txtNuoc.setText("Nước: " + ((GlobalVariable) getApplication())
+                .getPreviousSummaryPackage().getNumberOfWater()
+                + " - " + ((GlobalVariable) getApplication())
+                .getPreviousSummaryPackage().getTotalOfWater()
+                + " khối - " + DataProcessing
+                .formatIntToString(((GlobalVariable) getApplication())
+                        .getPreviousSummaryPackage().getTotalOfWater()
+                        * FeeDetails.WATER) + " VND");
+        txtDcc.setText("VS + ĐCC: " + DataProcessing
+                .formatIntToString(FeeDetails.SERVICES) + " VND");
+        txtMang.setText("Mạng: " + DataProcessing
+                .formatIntToString(FeeDetails.INTERNET) + " VND");
+        txtDieuhoa.setText("Bảo dưỡng điều hòa: " + DataProcessing
+                .formatIntToString(((GlobalVariable) getApplication())
+                        .getPreviousSummaryPackage().getAirConditional()) + " VND");
+        txtTienPhong.setText("Tiền phòng: " + DataProcessing
+                .formatIntToString(FeeDetails.ROOM_CHARGE) + " VND");
+        txtPayment.setText("Tổng tiền - "
+                + ((GlobalVariable) getApplication()).getPreviousSummaryPackage().getPayment());
+        txtTong.setText("Tổng: " + DataProcessing
+                .formatIntToString(((GlobalVariable) getApplication())
+                        .getPreviousSummaryPackage().getTotalMoneyPaid()) + " VND");
     }
 
 

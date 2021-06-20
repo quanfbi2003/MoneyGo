@@ -15,8 +15,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginPresenter {
     private final LoginInterface loginInterface;
-    private FirebaseAuth firebaseAuth;
     private final DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
     private Context context;
 
     public LoginPresenter(Context context, LoginInterface loginInterface) {
