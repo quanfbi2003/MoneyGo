@@ -24,7 +24,7 @@ public class SettlementPresenter {
     }
 
     public void setPayment(MoneyPackage moneyPackage) {
-        databaseReference.child("Summary").child(moneyPackage.getSummaryPackage())
+        databaseReference.child("Summary").child(moneyPackage.getSummaryPackage()).child("payment")
                 .setValue("Đã thanh toán");
     }
 
