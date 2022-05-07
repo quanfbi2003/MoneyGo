@@ -196,13 +196,13 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/nameN3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:text="Vũ Trường Sơn"
                     android:textColor="#2196F3"
-                    android:id="@+id/nameN3"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -240,12 +240,12 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/nameN4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:text="Nguyễn Xuân Lâm"
-                    android:id="@+id/nameN4"
                     android:textColor="#2196F3"
                     android:textSize="20sp"
                     android:textStyle="bold" />
