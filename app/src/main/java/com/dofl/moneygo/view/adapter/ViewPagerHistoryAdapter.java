@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.dofl.moneygo.model.Record;
+import com.dofl.moneygo.model.RegisteredAccount;
 import com.dofl.moneygo.presenter.utils.DataProcessing;
 import com.dofl.moneygo.view.activity.historyfragment.N1Fragment;
 import com.dofl.moneygo.view.activity.historyfragment.N2Fragment;
@@ -19,12 +20,14 @@ import java.util.Map;
 public class ViewPagerHistoryAdapter extends FragmentStatePagerAdapter {
     private final int pageNum;
     private Map<String, Record> recordPackage;
+    private RegisteredAccount registeredAccount;
 
-    public ViewPagerHistoryAdapter(@NonNull FragmentManager fm, int behavior) {
+    public ViewPagerHistoryAdapter(@NonNull FragmentManager fm, int behavior,
+                                   RegisteredAccount registeredAccount) {
         super(fm, behavior);
         this.pageNum = behavior;
         recordPackage = new HashMap<>();
-
+        this.registeredAccount = registeredAccount;
     }
 
     public void update(Map<String, Record> recordPackage) {
@@ -62,13 +65,13 @@ public class ViewPagerHistoryAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Quân";
+                return registeredAccount.getShortNameN1();
             case 1:
-                return "Doãn";
+                return registeredAccount.getShortNameN2();
             case 2:
-                return "Sơn";
+                return registeredAccount.getShortNameN3();
             default:
-                return "Lâm";
+                return registeredAccount.getShortNameN4();
         }
     }
 }

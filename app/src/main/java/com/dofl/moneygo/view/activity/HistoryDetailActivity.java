@@ -62,6 +62,16 @@ public class HistoryDetailActivity extends AppCompatActivity implements HistoryD
         description.setText(record.getDescription());
         total.setText(DataProcessing.formatIntToString(record.getTotal()) + " đ");
 
+        TextView nameN1 = findViewById(R.id.textViewNameN1);
+        TextView nameN2 = findViewById(R.id.textViewNameN2);
+        TextView nameN3 = findViewById(R.id.textViewNameN3);
+        TextView nameN4 = findViewById(R.id.textViewNameN4);
+
+        nameN1.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN1());
+        nameN2.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN2());
+        nameN3.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN3());
+        nameN4.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN4());
+
         TextView soTienDaMuaN1 = findViewById(R.id.textViewSTDMN1);
         TextView soTienConNoN1 = findViewById(R.id.textViewSTCNN1);
         TextView soTienConThuaN1 = findViewById(R.id.textViewSTCTN1);

@@ -43,6 +43,7 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
     private EditText timeText;
     private Calendar myCalendar;
     private AddPresenter addPresenter;
+    private TextView nameN1, nameN2, nameN3, nameN4;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -71,6 +72,17 @@ public class AddActivity extends AppCompatActivity implements AddInterface {
 
         EditText total = findViewById(R.id.total);
         total.setSelection(0);
+
+        nameN1 = findViewById(R.id.textViewNameN1);
+        nameN2 = findViewById(R.id.textViewNameN2);
+        nameN3 = findViewById(R.id.textViewNameN3);
+        nameN4 = findViewById(R.id.textViewNameN4);
+
+        nameN1.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN1());
+        nameN2.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN2());
+        nameN3.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN3());
+        nameN4.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN4());
+
 
         addPresenter = new AddPresenter(this);
     }

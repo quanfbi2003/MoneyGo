@@ -39,6 +39,7 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
     private String key;
     private Record record;
     private EditHistoryPresenter editHistoryPresenter;
+    private TextView nameN1, nameN2, nameN3, nameN4;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -72,6 +73,16 @@ public class EditHistoryActivity extends AppCompatActivity implements EditHistor
         total.setSelection(0);
         dateText = findViewById(R.id.date);
         timeText = findViewById(R.id.time);
+
+        nameN1 = findViewById(R.id.textViewNameN1);
+        nameN2 = findViewById(R.id.textViewNameN2);
+        nameN3 = findViewById(R.id.textViewNameN3);
+        nameN4 = findViewById(R.id.textViewNameN4);
+
+        nameN1.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN1());
+        nameN2.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN2());
+        nameN3.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN3());
+        nameN4.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN4());
 
         editHistoryPresenter = new EditHistoryPresenter(this);
     }

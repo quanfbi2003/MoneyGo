@@ -36,7 +36,8 @@ public class MenuPresenter {
         databaseReference.child("Maintenance").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.getValue().toString().equalsIgnoreCase("true")) {
+                if (Objects.requireNonNull(snapshot.getValue()).toString()
+                        .equalsIgnoreCase("true")) {
                     menuInterface.maintenance();
                 }
             }
@@ -53,14 +54,30 @@ public class MenuPresenter {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        registeredAccount.setN1(Objects
-                                .requireNonNull(snapshot.child("1").getValue()).toString());
-                        registeredAccount.setN2(Objects
-                                .requireNonNull(snapshot.child("2").getValue()).toString());
-                        registeredAccount.setN3(Objects
-                                .requireNonNull(snapshot.child("3").getValue()).toString());
-                        registeredAccount.setN4(Objects
-                                .requireNonNull(snapshot.child("4").getValue()).toString());
+                        String N1 = Objects.requireNonNull(snapshot.child("1")
+                                .getValue()).toString();
+                        String N2 = Objects.requireNonNull(snapshot.child("2")
+                                .getValue()).toString();
+                        String N3 = Objects.requireNonNull(snapshot.child("3")
+                                .getValue()).toString();
+                        String N4 = Objects.requireNonNull(snapshot.child("4")
+                                .getValue()).toString();
+
+                        registeredAccount.setN1(N1.split("\\|")[0]);
+                        registeredAccount.setN2(N2.split("\\|")[0]);
+                        registeredAccount.setN3(N3.split("\\|")[0]);
+                        registeredAccount.setN4(N4.split("\\|")[0]);
+
+                        registeredAccount.setNameN1(N1.split("\\|")[1]);
+                        registeredAccount.setNameN2(N2.split("\\|")[1]);
+                        registeredAccount.setNameN3(N3.split("\\|")[1]);
+                        registeredAccount.setNameN4(N4.split("\\|")[1]);
+
+                        registeredAccount.setShortNameN1(N1.split("\\|")[2]);
+                        registeredAccount.setShortNameN2(N2.split("\\|")[2]);
+                        registeredAccount.setShortNameN3(N3.split("\\|")[2]);
+                        registeredAccount.setShortNameN4(N4.split("\\|")[2]);
+
                         menuInterface.updateRegisteredAccountSuccess(registeredAccount);
                     }
 

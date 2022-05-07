@@ -108,6 +108,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/nameN1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -130,7 +131,7 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/txtQuan"
+                        android:id="@+id/txtN1"
                         android:layout_width="185dp"
                         android:layout_height="45dp"
                         android:gravity="start|center"
@@ -140,7 +141,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/valQuan"
+                        android:id="@+id/valN1"
                         android:layout_width="125dp"
                         android:layout_height="45dp"
                         android:gravity="start|center"
@@ -151,6 +152,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/nameN2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -173,7 +175,7 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/txtDoan"
+                        android:id="@+id/txtN2"
                         android:layout_width="185dp"
                         android:layout_height="45dp"
                         android:gravity="start|center"
@@ -183,7 +185,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/valDoan"
+                        android:id="@+id/valN2"
                         android:layout_width="125dp"
                         android:layout_height="45dp"
                         android:gravity="start|center"
@@ -200,6 +202,7 @@
                     android:layout_marginTop="10dp"
                     android:text="Vũ Trường Sơn"
                     android:textColor="#2196F3"
+                    android:id="@+id/nameN3"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -216,7 +219,7 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/txtSon"
+                        android:id="@+id/txtN3"
                         android:layout_width="185dp"
                         android:layout_height="45dp"
                         android:gravity="start|center"
@@ -226,7 +229,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/valSon"
+                        android:id="@+id/valN3"
                         android:layout_width="125dp"
                         android:layout_height="45dp"
                         android:gravity="start|center"
@@ -242,6 +245,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:text="Nguyễn Xuân Lâm"
+                    android:id="@+id/nameN4"
                     android:textColor="#2196F3"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -259,7 +263,7 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/txtLam"
+                        android:id="@+id/txtN4"
                         android:layout_width="185dp"
                         android:layout_height="45dp"
                         android:gravity="start|center"
@@ -269,7 +273,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/valLam"
+                        android:id="@+id/valN4"
                         android:layout_width="125dp"
                         android:layout_height="45dp"
                         android:gravity="start|center"

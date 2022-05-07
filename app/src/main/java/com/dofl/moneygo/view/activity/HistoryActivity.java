@@ -60,7 +60,8 @@ public class HistoryActivity extends AppCompatActivity implements HistoryInterfa
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
-        adapter = new ViewPagerHistoryAdapter(getSupportFragmentManager(), 4);
+        adapter = new ViewPagerHistoryAdapter(getSupportFragmentManager(), 4,
+                ((GlobalVariable) this.getApplication()).getRegisteredAccount());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(R.drawable.top_bar_info);
@@ -78,6 +79,9 @@ public class HistoryActivity extends AppCompatActivity implements HistoryInterfa
         left = findViewById(R.id.left);
         right = findViewById(R.id.right);
         month = findViewById(R.id.month);
+
+        month.setText(((GlobalVariable) getApplication())
+                .getPresentSummaryPackage().getMonthOfYear());
 
         left.setOnClickListener(v -> {
             if (selectedMonth == 1) {

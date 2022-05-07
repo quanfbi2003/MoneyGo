@@ -100,18 +100,27 @@ public class PaymentActivity extends AppCompatActivity implements PaymentInterfa
 
     @SuppressLint("SetTextI18n")
     private void importValue() {
-        TextView txtQuan = findViewById(R.id.txtQuan);
-        TextView valQuan = findViewById(R.id.valQuan);
-        TextView txtDoan = findViewById(R.id.txtDoan);
-        TextView valDoan = findViewById(R.id.valDoan);
-        TextView txtSon = findViewById(R.id.txtSon);
-        TextView valSon = findViewById(R.id.valSon);
-        TextView txtLam = findViewById(R.id.txtLam);
-        TextView valLam = findViewById(R.id.valLam);
+        TextView txtN1 = findViewById(R.id.txtN1);
+        TextView valN1 = findViewById(R.id.valN1);
+        TextView txtN2 = findViewById(R.id.txtN2);
+        TextView valN2 = findViewById(R.id.valN2);
+        TextView txtN3 = findViewById(R.id.txtN3);
+        TextView valN3 = findViewById(R.id.valN3);
+        TextView txtN4 = findViewById(R.id.txtN4);
+        TextView valN4 = findViewById(R.id.valN4);
         TextView txtHx = findViewById(R.id.txtHx);
         TextView valHx = findViewById(R.id.valHx);
         Spinner spinner = findViewById(R.id.name);
         EditText money = findViewById(R.id.money);
+        TextView nameN1 = findViewById(R.id.nameN1);
+        TextView nameN2 = findViewById(R.id.nameN2);
+        TextView nameN3 = findViewById(R.id.nameN3);
+        TextView nameN4 = findViewById(R.id.nameN4);
+
+        nameN1.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN1());
+        nameN2.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN2());
+        nameN3.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN3());
+        nameN4.setText(((GlobalVariable) this.getApplication()).getRegisteredAccount().getNameN4());
 
         spinner.setSelection(0);
         money.setText("");
@@ -121,17 +130,17 @@ public class PaymentActivity extends AppCompatActivity implements PaymentInterfa
                 - ((GlobalVariable) this.getApplication())
                 .getN1MoneyPackage().getMoneySent();
         if (n1MoneyPaid <= 0) {
-            valQuan.setText(DataProcessing
+            valN1.setText(DataProcessing
                     .formatIntToString(n1MoneyPaid * -1) + " đ");
-            txtQuan.setTextColor(Color.parseColor("#43A047"));
-            valQuan.setTextColor(Color.parseColor("#43A047"));
-            txtQuan.setText("Số tiền còn thừa:");
+            txtN1.setTextColor(Color.parseColor("#43A047"));
+            valN1.setTextColor(Color.parseColor("#43A047"));
+            txtN1.setText("Số tiền còn thừa:");
         } else {
-            valQuan.setText(DataProcessing.
+            valN1.setText(DataProcessing.
                     formatIntToString(n1MoneyPaid) + " đ");
-            txtQuan.setTextColor(Color.RED);
-            valQuan.setTextColor(Color.RED);
-            txtQuan.setText("Số tiền còn nợ:");
+            txtN1.setTextColor(Color.RED);
+            valN1.setTextColor(Color.RED);
+            txtN1.setText("Số tiền còn nợ:");
         }
 
         int n2MoneyPaid = ((GlobalVariable) this.getApplication())
@@ -139,17 +148,17 @@ public class PaymentActivity extends AppCompatActivity implements PaymentInterfa
                 - ((GlobalVariable) this.getApplication())
                 .getN2MoneyPackage().getMoneySent();
         if (n2MoneyPaid <= 0) {
-            valDoan.setText(DataProcessing
+            valN2.setText(DataProcessing
                     .formatIntToString(n2MoneyPaid * -1) + " đ");
-            txtDoan.setTextColor(Color.parseColor("#43A047"));
-            valDoan.setTextColor(Color.parseColor("#43A047"));
-            txtDoan.setText("Số tiền còn thừa:");
+            txtN2.setTextColor(Color.parseColor("#43A047"));
+            valN2.setTextColor(Color.parseColor("#43A047"));
+            txtN2.setText("Số tiền còn thừa:");
         } else {
-            valDoan.setText(DataProcessing.
+            valN2.setText(DataProcessing.
                     formatIntToString(n2MoneyPaid) + " đ");
-            txtDoan.setTextColor(Color.RED);
-            valDoan.setTextColor(Color.RED);
-            txtDoan.setText("Số tiền còn nợ:");
+            txtN2.setTextColor(Color.RED);
+            valN2.setTextColor(Color.RED);
+            txtN2.setText("Số tiền còn nợ:");
         }
 
         int n3MoneyPaid = ((GlobalVariable) this.getApplication())
@@ -157,17 +166,17 @@ public class PaymentActivity extends AppCompatActivity implements PaymentInterfa
                 - ((GlobalVariable) this.getApplication())
                 .getN3MoneyPackage().getMoneySent();
         if (n3MoneyPaid <= 0) {
-            valSon.setText(DataProcessing
+            valN3.setText(DataProcessing
                     .formatIntToString(n3MoneyPaid * -1) + " đ");
-            txtSon.setTextColor(Color.parseColor("#43A047"));
-            valSon.setTextColor(Color.parseColor("#43A047"));
-            txtSon.setText("Số tiền còn thừa:");
+            txtN3.setTextColor(Color.parseColor("#43A047"));
+            valN3.setTextColor(Color.parseColor("#43A047"));
+            txtN3.setText("Số tiền còn thừa:");
         } else {
-            valSon.setText(DataProcessing.
+            valN3.setText(DataProcessing.
                     formatIntToString(n3MoneyPaid) + " đ");
-            txtSon.setTextColor(Color.RED);
-            valSon.setTextColor(Color.RED);
-            txtSon.setText("Số tiền còn nợ:");
+            txtN3.setTextColor(Color.RED);
+            valN3.setTextColor(Color.RED);
+            txtN3.setText("Số tiền còn nợ:");
         }
 
         int n4MoneyPaid = ((GlobalVariable) this.getApplication())
@@ -175,17 +184,17 @@ public class PaymentActivity extends AppCompatActivity implements PaymentInterfa
                 - ((GlobalVariable) this.getApplication())
                 .getN4MoneyPackage().getMoneySent();
         if (n4MoneyPaid <= 0) {
-            valLam.setText(DataProcessing
+            valN4.setText(DataProcessing
                     .formatIntToString(n4MoneyPaid * -1) + " đ");
-            txtLam.setTextColor(Color.parseColor("#43A047"));
-            valLam.setTextColor(Color.parseColor("#43A047"));
-            txtLam.setText("Số tiền còn thừa:");
+            txtN4.setTextColor(Color.parseColor("#43A047"));
+            valN4.setTextColor(Color.parseColor("#43A047"));
+            txtN4.setText("Số tiền còn thừa:");
         } else {
-            valLam.setText(DataProcessing.
+            valN4.setText(DataProcessing.
                     formatIntToString(n4MoneyPaid) + " đ");
-            txtLam.setTextColor(Color.RED);
-            valLam.setTextColor(Color.RED);
-            txtLam.setText("Số tiền còn nợ:");
+            txtN4.setTextColor(Color.RED);
+            valN4.setTextColor(Color.RED);
+            txtN4.setText("Số tiền còn nợ:");
         }
 
         int hxPaid = ((GlobalVariable) this.getApplication()).getNeighborNetwork();
