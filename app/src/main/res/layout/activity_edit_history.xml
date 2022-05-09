@@ -8,11 +8,6 @@
     android:orientation="vertical"
     tools:context=".view.activity.EditHistoryActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -206,7 +201,6 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:onClick="setImageClickN1"
-                            android:text="@string/name_n1"
                             android:textColor="@color/purple_500"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -307,7 +301,6 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:onClick="setImageClickN2"
-                            android:text="@string/name_n2"
                             android:textColor="@color/purple_500"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -408,7 +401,6 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:onClick="setImageClickN3"
-                            android:text="@string/name_n3"
                             android:textColor="@color/purple_500"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -509,7 +501,6 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:onClick="setImageClickN4"
-                            android:text="@string/name_n4"
                             android:textColor="@color/purple_500"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -621,5 +612,4 @@
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
-    </LinearLayout>
 </LinearLayout>

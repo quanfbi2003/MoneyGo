@@ -7,24 +7,13 @@
     <string name="information">Information</string>
     <string name="todo">TODO</string>
     <string name="sign_out">Đăng xuất</string>
-    <string name="name_n1">Quân Jullian</string>
     <string name="so_tien">Số tiền</string>
     <string name="_dd">đ</string>
     <string name="_000">000</string>
     <string name="time">Giờ</string>
     <string name="date">Ngày</string>
     <string name="ghi_chu">Ghi chú</string>
-    <string name="name_n2">Nguyễn Doãn Sơn</string>
     <string name="value">0</string>
-    <string name="name_n3">Nguyễn Xuân Huy</string>
-    <string name="name_n4">Nguyễn Xuân Lâm</string>
     <string name="huy">Hủy</string>
     <string name="luu">Lưu</string>
-    <string-array name="spinner">
-        <item>Quân Jullian</item>
-        <item>Nguyễn Doãn Sơn</item>
-        <item>Nguyễn Xuân Huy</item>
-        <item>Nguyễn Xuân Lâm</item>
-        <item>Mạng Hàng Xóm</item>
-    </string-array>
 </resources>

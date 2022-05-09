@@ -22,11 +22,13 @@ import com.dofl.moneygo.presenter.PaymentInterface;
 import com.dofl.moneygo.presenter.PaymentPresenter;
 import com.dofl.moneygo.presenter.utils.DataProcessing;
 import com.dofl.moneygo.presenter.utils.HideKeyboard;
+import com.dofl.moneygo.view.adapter.SpinnerPaymentAdapter;
 
 import java.util.Objects;
 
 public class PaymentActivity extends AppCompatActivity implements PaymentInterface {
     private PaymentPresenter paymentPresenter;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,13 @@ public class PaymentActivity extends AppCompatActivity implements PaymentInterfa
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         checkNetworkStatus();
+        spinner = findViewById(R.id.name);
+        spinner.setAdapter(
+                new SpinnerPaymentAdapter(PaymentActivity.this,
+                        R.layout.spinner_payment_layout,
+                        R.id.textView_item_name,
+                        ((GlobalVariable) this.getApplication())
+                                .getRegisteredAccount()));
         new Thread(() -> HideKeyboard.setupUI(findViewById(R.id.payment_view),
                 PaymentActivity.this)).start();
 
@@ -55,38 +64,38 @@ public class PaymentActivity extends AppCompatActivity implements PaymentInterfa
                         .setTitle("Cảnh báo!!!")
                         .setMessage("Bạn có chắc chắn tiếp tục?")
                         .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                            Spinner spinner = findViewById(R.id.name);
                             EditText money = findViewById(R.id.money);
-                            switch (spinner.getSelectedItem().toString()) {
-                                case "Quân Jullian":
+
+                            switch ((int) spinner.getSelectedItemId()) {
+                                case 0:
                                     paymentPresenter.payForN1(((GlobalVariable) this
                                                     .getApplication()).getAccount(),
                                             ((GlobalVariable) this
                                                     .getApplication()).getN1MoneyPackage(),
                                             Integer.parseInt(money.getText().toString()));
                                     break;
-                                case "Nguyễn Doãn Sơn":
+                                case 1:
                                     paymentPresenter.payForN2(((GlobalVariable) this
                                                     .getApplication()).getAccount(),
                                             ((GlobalVariable) this
                                                     .getApplication()).getN2MoneyPackage(),
                                             Integer.parseInt(money.getText().toString()));
                                     break;
-                                case "Vũ Trường Sơn":
+                                case 2:
                                     paymentPresenter.payForN3(((GlobalVariable) this
                                                     .getApplication()).getAccount(),
                                             ((GlobalVariable) this
                                                     .getApplication()).getN3MoneyPackage(),
                                             Integer.parseInt(money.getText().toString()));
                                     break;
-                                case "Nguyễn Xuân Lâm":
+                                case 3:
                                     paymentPresenter.payForN4(((GlobalVariable) this
                                                     .getApplication()).getAccount(),
                                             ((GlobalVariable) this
                                                     .getApplication()).getN4MoneyPackage(),
                                             Integer.parseInt(money.getText().toString()));
                                     break;
-                                case "Mạng Hàng Xóm":
+                                case 4:
                                     paymentPresenter.payForHX(((GlobalVariable) this
                                                     .getApplication()).getNeighborNetwork(),
                                             Integer.parseInt(money.getText().toString()));
